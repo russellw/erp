@@ -4,7 +4,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a sketch/prototype of an ERP (Enterprise Resource Planning) system. Based on the .gitignore file, this appears to be intended as a Go project, though the codebase is currently minimal with only basic setup files.
+This is a sketch/prototype of an ERP (Enterprise Resource Planning) system with:
+- **Backend**: Go-based API server
+- **Frontend**: React with Next.js client application  
+- **Database**: PostgreSQL with comprehensive schema
+
+The codebase currently includes database schema and initialization scripts.
 
 ## Development Configuration
 
@@ -13,8 +18,19 @@ This is a sketch/prototype of an ERP (Enterprise Resource Planning) system. Base
 
 ## Development Commands
 
-Since this is an early-stage Go project, the following commands will likely be relevant once development begins:
+### Database
+```bash
+# Test database connection
+python test_db_connection.py
 
+# Initialize database from schema
+python init_db.py
+
+# Reset database (drop and recreate)
+python init_db.py --drop
+```
+
+### Backend (Go)
 ```bash
 # Initialize Go module (if not already done)
 go mod init
@@ -36,6 +52,27 @@ go fmt ./...
 
 # Vet code for potential issues
 go vet ./...
+```
+
+### Frontend (React/Next.js)
+```bash
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Start production server
+npm start
+
+# Run tests
+npm test
+
+# Lint code
+npm run lint
 ```
 
 ## Expected Architecture
