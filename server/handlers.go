@@ -3,9 +3,17 @@ package main
 import (
 	"database/sql"
 	"net/http"
+	"regexp"
 
 	"github.com/gin-gonic/gin"
 )
+
+// UUID validation regex
+var uuidRegex = regexp.MustCompile(`^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$`)
+
+func isValidUUID(uuid string) bool {
+	return uuidRegex.MatchString(uuid)
+}
 
 // Auth handlers
 func handleLogin(db *sql.DB) gin.HandlerFunc {
@@ -81,6 +89,13 @@ func handleCreateUser(db *sql.DB) gin.HandlerFunc {
 func handleGetUser(db *sql.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		id := c.Param("id")
+		
+		// Validate UUID format
+		if !isValidUUID(id) {
+			c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
+			return
+		}
+		
 		var user User
 		
 		err := db.QueryRow("SELECT id, username, email, first_name, last_name, is_active, created_at, updated_at FROM users WHERE id = $1", id).

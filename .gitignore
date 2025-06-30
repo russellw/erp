@@ -9,6 +9,10 @@
 *.so
 *.dylib
 
+# Project specific binaries
+erp
+server/erp
+
 # Test binary, built with `go test -c`
 *.test
 
