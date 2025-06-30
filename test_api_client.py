@@ -59,7 +59,7 @@ class ERPAPIClient:
             print(f"   ❌ Health check error: {e}")
             return False
 
-    def test_auth_login(self, username: str = "admin", password: str = "admin123") -> bool:
+    def test_auth_login(self, username: str = "admin", password: str = "password") -> bool:
         """Test authentication login."""
         print("🔐 Testing authentication...")
         try:
@@ -132,12 +132,50 @@ class ERPAPIClient:
             print(f"   ❌ List companies error: {e}")
             return False
 
+    def test_customers_list(self) -> bool:
+        """Test list customers endpoint."""
+        print("👥 Testing list customers...")
+        try:
+            response = self._make_request("GET", "/api/v1/customers")
+            
+            if response.status_code == 200:
+                data = response.json()
+                count = len(data) if isinstance(data, list) else 'N/A'
+                print(f"   ✅ Customers list retrieved: {count} customers")
+                if isinstance(data, list) and len(data) > 0:
+                    print(f"      Sample customer fields: {list(data[0].keys())}")
+                return True
+            else:
+                print(f"   ❌ List customers failed: {response.status_code} - {response.text}")
+                return False
+        except Exception as e:
+            print(f"   ❌ List customers error: {e}")
+            return False
+
+    def test_products_list(self) -> bool:
+        """Test list products endpoint."""
+        print("📦 Testing list products...")
+        try:
+            response = self._make_request("GET", "/api/v1/products")
+            
+            if response.status_code == 200:
+                data = response.json()
+                count = len(data) if isinstance(data, list) else 'N/A'
+                print(f"   ✅ Products list retrieved: {count} products")
+                if isinstance(data, list) and len(data) > 0:
+                    print(f"      Sample product fields: {list(data[0].keys())}")
+                return True
+            else:
+                print(f"   ❌ List products failed: {response.status_code} - {response.text}")
+                return False
+        except Exception as e:
+            print(f"   ❌ List products error: {e}")
+            return False
+
     def test_not_implemented_endpoints(self) -> bool:
         """Test endpoints that return 'Not implemented yet'."""
         print("🚧 Testing not-implemented endpoints...")
         endpoints = [
-            "/api/v1/customers",
-            "/api/v1/products", 
             "/api/v1/sales-orders",
             "/api/v1/invoices"
         ]
@@ -218,6 +256,8 @@ class ERPAPIClient:
             self.test_auth_me,
             self.test_users_list,
             self.test_companies_list,
+            self.test_customers_list,
+            self.test_products_list,
             self.test_not_implemented_endpoints,
             self.test_invalid_endpoints,
             self.test_cors_headers
@@ -251,8 +291,8 @@ def main():
                        help='Base URL of the ERP API server (default: http://localhost:8080)')
     parser.add_argument('--username', default='admin', 
                        help='Username for authentication (default: admin)')
-    parser.add_argument('--password', default='admin123', 
-                       help='Password for authentication (default: admin123)')
+    parser.add_argument('--password', default='password', 
+                       help='Password for authentication (default: password)')
     parser.add_argument('--health-only', action='store_true', 
                        help='Only run health check test')
     
