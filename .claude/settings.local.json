@@ -4,7 +4,10 @@
       "Bash(find:*)",
       "Bash(python test_db_connection.py:*)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(python test_api_client.py:*)",
+      "Bash(curl:*)",
+      "Bash(go build:*)"
     ],
     "deny": []
   }
