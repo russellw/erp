@@ -178,7 +178,40 @@ func handleDeleteCompany(db *sql.DB) gin.HandlerFunc {
 // Customer handlers
 func handleGetCustomers(db *sql.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		c.JSON(http.StatusNotImplemented, gin.H{"error": "Not implemented yet"})
+		rows, err := db.Query(`
+			SELECT id, company_id, customer_code, name, email, phone, 
+				   billing_address, city, state, country, credit_limit, 
+				   payment_terms, is_active, created_at, updated_at 
+			FROM customers 
+			WHERE is_active = true 
+			ORDER BY name`)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch customers"})
+			return
+		}
+		defer rows.Close()
+
+		var customers []Customer
+		for rows.Next() {
+			var customer Customer
+			err := rows.Scan(
+				&customer.ID, &customer.CompanyID, &customer.CustomerCode, 
+				&customer.Name, &customer.Email, &customer.Phone,
+				&customer.BillingAddress, &customer.City, &customer.State, 
+				&customer.Country, &customer.CreditLimit, &customer.PaymentTerms,
+				&customer.IsActive, &customer.CreatedAt, &customer.UpdatedAt)
+			if err != nil {
+				c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to scan customer"})
+				return
+			}
+			customers = append(customers, customer)
+		}
+
+		if customers == nil {
+			customers = []Customer{}
+		}
+
+		c.JSON(http.StatusOK, customers)
 	}
 }
 
@@ -209,7 +242,40 @@ func handleDeleteCustomer(db *sql.DB) gin.HandlerFunc {
 // Product handlers
 func handleGetProducts(db *sql.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		c.JSON(http.StatusNotImplemented, gin.H{"error": "Not implemented yet"})
+		rows, err := db.Query(`
+			SELECT id, company_id, sku, name, description, unit_of_measure,
+				   unit_price, cost_price, weight, dimensions, is_active,
+				   track_inventory, minimum_stock, maximum_stock, created_at, updated_at
+			FROM products 
+			WHERE is_active = true 
+			ORDER BY name`)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch products"})
+			return
+		}
+		defer rows.Close()
+
+		var products []Product
+		for rows.Next() {
+			var product Product
+			err := rows.Scan(
+				&product.ID, &product.CompanyID, &product.SKU, &product.Name,
+				&product.Description, &product.UnitOfMeasure, &product.UnitPrice,
+				&product.CostPrice, &product.Weight, &product.Dimensions,
+				&product.IsActive, &product.TrackInventory, &product.MinimumStock,
+				&product.MaximumStock, &product.CreatedAt, &product.UpdatedAt)
+			if err != nil {
+				c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to scan product"})
+				return
+			}
+			products = append(products, product)
+		}
+
+		if products == nil {
+			products = []Product{}
+		}
+
+		c.JSON(http.StatusOK, products)
 	}
 }
 
