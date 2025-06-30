@@ -11,7 +11,7 @@ import type {
   ApiResponse,
 } from './types';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api/v1';
 
 class ApiClient {
   private baseUrl: string;
@@ -157,29 +157,29 @@ class ApiClient {
   }
 
   async getSalesOrders(): Promise<ApiResponse<SalesOrder[]>> {
-    return this.request<SalesOrder[]>('/orders');
+    return this.request<SalesOrder[]>('/sales-orders');
   }
 
   async getSalesOrderById(id: string): Promise<ApiResponse<SalesOrder>> {
-    return this.request<SalesOrder>(`/orders/${id}`);
+    return this.request<SalesOrder>(`/sales-orders/${id}`);
   }
 
   async createSalesOrder(order: Partial<SalesOrder>): Promise<ApiResponse<SalesOrder>> {
-    return this.request<SalesOrder>('/orders', {
+    return this.request<SalesOrder>('/sales-orders', {
       method: 'POST',
       body: JSON.stringify(order),
     });
   }
 
   async updateSalesOrder(id: string, order: Partial<SalesOrder>): Promise<ApiResponse<SalesOrder>> {
-    return this.request<SalesOrder>(`/orders/${id}`, {
+    return this.request<SalesOrder>(`/sales-orders/${id}`, {
       method: 'PUT',
       body: JSON.stringify(order),
     });
   }
 
   async deleteSalesOrder(id: string): Promise<ApiResponse<void>> {
-    return this.request<void>(`/orders/${id}`, {
+    return this.request<void>(`/sales-orders/${id}`, {
       method: 'DELETE',
     });
   }
