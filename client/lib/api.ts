@@ -36,18 +36,31 @@ class ApiClient {
 
     try {
       const response = await fetch(url, config);
-      const data = await response.json();
+      
+      // Get response text first to handle non-JSON responses
+      const responseText = await response.text();
+      
+      // Try to parse as JSON
+      let data;
+      try {
+        data = responseText ? JSON.parse(responseText) : {};
+      } catch (parseError) {
+        // If JSON parsing fails, return detailed error info
+        return {
+          error: `Invalid JSON response from ${url}. Status: ${response.status} ${response.statusText}. Response: ${responseText.substring(0, 200)}${responseText.length > 200 ? '...' : ''}`,
+        };
+      }
 
       if (!response.ok) {
         return {
-          error: data.message || `HTTP error! status: ${response.status}`,
+          error: data?.message || `HTTP ${response.status}: ${response.statusText} - ${url}`,
         };
       }
 
       return { data };
     } catch (error) {
       return {
-        error: error instanceof Error ? error.message : 'Network error',
+        error: `Network error requesting ${url}: ${error instanceof Error ? error.message : 'Unknown error'}`,
       };
     }
   }

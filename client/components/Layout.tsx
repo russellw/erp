@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import ApiDebugInfo from './ApiDebugInfo';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -95,6 +96,8 @@ export default function Layout({ children }: LayoutProps) {
           </main>
         </div>
       </div>
+      
+      <ApiDebugInfo />
     </div>
   );
 }
