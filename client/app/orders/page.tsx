@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Layout from '../../components/Layout';
+import ErrorMessage from '../../components/ErrorMessage';
 import { apiClient } from '../../lib/api';
 import type { SalesOrder, Customer } from '../../lib/types';
 
@@ -193,9 +194,10 @@ export default function Orders() {
         </div>
 
         {error && (
-          <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-md">
-            {error}
-          </div>
+          <ErrorMessage 
+            message={error} 
+            onDismiss={() => setError('')}
+          />
         )}
 
         <div className="bg-white shadow rounded-lg overflow-hidden">
