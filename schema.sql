@@ -59,6 +59,29 @@ CREATE TABLE departments (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Employee Management
+CREATE TABLE employees (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    company_id UUID REFERENCES companies(id) ON DELETE CASCADE,
+    user_id UUID REFERENCES users(id),
+    employee_number VARCHAR(50) UNIQUE NOT NULL,
+    department_id UUID REFERENCES departments(id),
+    job_title VARCHAR(255),
+    hire_date DATE,
+    termination_date DATE,
+    salary DECIMAL(15,2),
+    hourly_rate DECIMAL(10,2),
+    employment_type VARCHAR(20) DEFAULT 'full_time' CHECK (employment_type IN ('full_time', 'part_time', 'contract', 'intern')),
+    manager_id UUID REFERENCES employees(id),
+    work_location VARCHAR(255),
+    phone VARCHAR(50),
+    emergency_contact_name VARCHAR(255),
+    emergency_contact_phone VARCHAR(50),
+    is_active BOOLEAN DEFAULT true,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Customer Management
 CREATE TABLE customers (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -83,6 +106,37 @@ CREATE TABLE customers (
     employee_count INTEGER,
     assigned_salesperson_id UUID,
     is_active BOOLEAN DEFAULT true,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Product Categories
+CREATE TABLE product_categories (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    company_id UUID REFERENCES companies(id) ON DELETE CASCADE,
+    name VARCHAR(255) NOT NULL,
+    description TEXT,
+    parent_category_id UUID REFERENCES product_categories(id),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Products and Inventory
+CREATE TABLE products (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    company_id UUID REFERENCES companies(id) ON DELETE CASCADE,
+    sku VARCHAR(100) UNIQUE NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    description TEXT,
+    category_id UUID REFERENCES product_categories(id),
+    unit_of_measure VARCHAR(20),
+    unit_price DECIMAL(15,2),
+    cost_price DECIMAL(15,2),
+    weight DECIMAL(10,3),
+    dimensions VARCHAR(100),
+    is_active BOOLEAN DEFAULT true,
+    track_inventory BOOLEAN DEFAULT true,
+    minimum_stock INTEGER DEFAULT 0,
+    maximum_stock INTEGER,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
@@ -262,7 +316,6 @@ CREATE TABLE territories (
 
 -- Territory Assignments
 CREATE TABLE territory_assignments (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     territory_id UUID REFERENCES territories(id) ON DELETE CASCADE,
     salesperson_id UUID REFERENCES employees(id) ON DELETE CASCADE,
     start_date DATE DEFAULT CURRENT_DATE,
@@ -296,37 +349,6 @@ CREATE TABLE suppliers (
     country VARCHAR(100),
     payment_terms INTEGER DEFAULT 30,
     is_active BOOLEAN DEFAULT true,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-);
-
--- Product Categories
-CREATE TABLE product_categories (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    company_id UUID REFERENCES companies(id) ON DELETE CASCADE,
-    name VARCHAR(255) NOT NULL,
-    description TEXT,
-    parent_category_id UUID REFERENCES product_categories(id),
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-);
-
--- Products and Inventory
-CREATE TABLE products (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    company_id UUID REFERENCES companies(id) ON DELETE CASCADE,
-    sku VARCHAR(100) UNIQUE NOT NULL,
-    name VARCHAR(255) NOT NULL,
-    description TEXT,
-    category_id UUID REFERENCES product_categories(id),
-    unit_of_measure VARCHAR(20),
-    unit_price DECIMAL(15,2),
-    cost_price DECIMAL(15,2),
-    weight DECIMAL(10,3),
-    dimensions VARCHAR(100),
-    is_active BOOLEAN DEFAULT true,
-    track_inventory BOOLEAN DEFAULT true,
-    minimum_stock INTEGER DEFAULT 0,
-    maximum_stock INTEGER,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
@@ -498,28 +520,6 @@ CREATE TABLE journal_entry_lines (
 );
 
 -- Employee Management
-CREATE TABLE employees (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    company_id UUID REFERENCES companies(id) ON DELETE CASCADE,
-    user_id UUID REFERENCES users(id),
-    employee_number VARCHAR(50) UNIQUE NOT NULL,
-    department_id UUID REFERENCES departments(id),
-    job_title VARCHAR(255),
-    hire_date DATE,
-    termination_date DATE,
-    salary DECIMAL(15,2),
-    hourly_rate DECIMAL(10,2),
-    employment_type VARCHAR(20) DEFAULT 'full_time' CHECK (employment_type IN ('full_time', 'part_time', 'contract', 'intern')),
-    manager_id UUID REFERENCES employees(id),
-    work_location VARCHAR(255),
-    phone VARCHAR(50),
-    emergency_contact_name VARCHAR(255),
-    emergency_contact_phone VARCHAR(50),
-    is_active BOOLEAN DEFAULT true,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-);
-
 -- Job Positions and Grades
 CREATE TABLE job_positions (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -723,7 +723,6 @@ CREATE TABLE training_sessions (
 );
 
 CREATE TABLE training_enrollments (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     training_session_id UUID REFERENCES training_sessions(id),
     employee_id UUID REFERENCES employees(id) ON DELETE CASCADE,
     enrollment_date DATE DEFAULT CURRENT_DATE,
@@ -1015,7 +1014,6 @@ CREATE TABLE project_tasks (
 
 -- Task Dependencies
 CREATE TABLE task_dependencies (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     predecessor_task_id UUID REFERENCES project_tasks(id) ON DELETE CASCADE,
     successor_task_id UUID REFERENCES project_tasks(id) ON DELETE CASCADE,
     dependency_type VARCHAR(20) DEFAULT 'finish_to_start' CHECK (dependency_type IN ('finish_to_start', 'start_to_start', 'finish_to_finish', 'start_to_finish')),
@@ -1121,7 +1119,6 @@ CREATE TABLE skills (
 );
 
 CREATE TABLE employee_skills (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     employee_id UUID REFERENCES employees(id) ON DELETE CASCADE,
     skill_id UUID REFERENCES skills(id),
     proficiency_level INTEGER CHECK (proficiency_level >= 1 AND proficiency_level <= 5),
