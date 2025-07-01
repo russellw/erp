@@ -12,7 +12,8 @@
       "Bash(chmod:*)",
       "Bash(grep:*)",
       "Bash(python:*)",
-      "Bash(sed:*)"
+      "Bash(sed:*)",
+      "Bash(awk:*)"
     ],
     "deny": []
   }
