@@ -184,12 +184,12 @@ INSERT INTO products (id, company_id, sku, name, description, category_id, unit_
 ('550e8400-e29b-41d4-a716-446655440065', '550e8400-e29b-41d4-a716-446655440000', 'SUPPORT-HR', 'Technical Support (Hourly)', 'Professional technical support services', '550e8400-e29b-41d4-a716-446655440053', 'hour', 125.00, 75.00, 0, 'Service', true, false, 0, null);
 
 -- Insert Inventory Levels
-INSERT INTO inventory_levels (id, warehouse_id, product_id, quantity_on_hand, reserved_quantity, reorder_point, last_updated) VALUES
-('550e8400-e29b-41d4-a716-446655440070', '550e8400-e29b-41d4-a716-446655440040', '550e8400-e29b-41d4-a716-446655440060', 25, 5, 10, CURRENT_TIMESTAMP), -- Laptops in Main Warehouse
-('550e8400-e29b-41d4-a716-446655440071', '550e8400-e29b-41d4-a716-446655440040', '550e8400-e29b-41d4-a716-446655440061', 150, 20, 50, CURRENT_TIMESTAMP), -- Mice in Main Warehouse
-('550e8400-e29b-41d4-a716-446655440072', '550e8400-e29b-41d4-a716-446655440040', '550e8400-e29b-41d4-a716-446655440062', 45, 5, 15, CURRENT_TIMESTAMP), -- Keyboards in Main Warehouse
-('550e8400-e29b-41d4-a716-446655440073', '550e8400-e29b-41d4-a716-446655440041', '550e8400-e29b-41d4-a716-446655440064', 12, 2, 5, CURRENT_TIMESTAMP), -- Monitors in East Coast
-('550e8400-e29b-41d4-a716-446655440074', '550e8400-e29b-41d4-a716-446655440041', '550e8400-e29b-41d4-a716-446655440061', 80, 10, 30, CURRENT_TIMESTAMP); -- Mice in East Coast
+INSERT INTO inventory (id, warehouse_id, product_id, quantity_on_hand, quantity_reserved, last_updated) VALUES
+('550e8400-e29b-41d4-a716-446655440070', '550e8400-e29b-41d4-a716-446655440040', '550e8400-e29b-41d4-a716-446655440060', 25, 5, CURRENT_TIMESTAMP), -- Laptops in Main Warehouse
+('550e8400-e29b-41d4-a716-446655440071', '550e8400-e29b-41d4-a716-446655440040', '550e8400-e29b-41d4-a716-446655440061', 150, 20, CURRENT_TIMESTAMP), -- Mice in Main Warehouse
+('550e8400-e29b-41d4-a716-446655440072', '550e8400-e29b-41d4-a716-446655440040', '550e8400-e29b-41d4-a716-446655440062', 45, 5, CURRENT_TIMESTAMP), -- Keyboards in Main Warehouse
+('550e8400-e29b-41d4-a716-446655440073', '550e8400-e29b-41d4-a716-446655440041', '550e8400-e29b-41d4-a716-446655440064', 12, 2, CURRENT_TIMESTAMP), -- Monitors in East Coast
+('550e8400-e29b-41d4-a716-446655440074', '550e8400-e29b-41d4-a716-446655440041', '550e8400-e29b-41d4-a716-446655440061', 80, 10, CURRENT_TIMESTAMP); -- Mice in East Coast
 
 -- Insert Customers
 INSERT INTO customers (id, company_id, customer_code, name, email, phone, tax_id, billing_address, shipping_address, city, state, postal_code, country, credit_limit, payment_terms, is_active) VALUES
@@ -207,55 +207,55 @@ INSERT INTO suppliers (id, company_id, supplier_code, name, email, phone, tax_id
 
 -- Insert Sales Orders
 INSERT INTO sales_orders (id, company_id, order_number, customer_id, salesperson_id, order_date, required_date, promised_date, status, subtotal, tax_amount, shipping_amount, total_amount, notes) VALUES
-('550e8400-e29b-41d4-a716-446655440100', '550e8400-e29b-41d4-a716-446655440000', 'SO-2024-001', '550e8400-e29b-41d4-a716-446655440080', '550e8400-e29b-41d4-a716-446655440022', '2024-01-15', '2024-02-01', '2024-01-30', 'confirmed', 2649.97, 212.00, 50.00, 2911.97, 'Bulk order for new office setup'),
-('550e8400-e29b-41d4-a716-446655440101', '550e8400-e29b-41d4-a716-446655440000', 'SO-2024-002', '550e8400-e29b-41d4-a716-446655440081', '550e8400-e29b-41d4-a716-446655440022', '2024-01-18', '2024-02-15', '2024-02-10', 'processing', 1849.96, 147.00, 75.00, 2071.96, 'Startup equipment package'),
-('550e8400-e29b-41d4-a716-446655440102', '550e8400-e29b-41d4-a716-446655440000', 'SO-2024-003', '550e8400-e29b-41d4-a716-446655440082', '550e8400-e29b-41d4-a716-446655440022', '2024-01-20', '2024-02-05', '2024-02-03', 'shipped', 3899.94, 312.00, 100.00, 4311.94, 'Corporate expansion order'),
-('550e8400-e29b-41d4-a716-446655440103', '550e8400-e29b-41d4-a716-446655440000', 'SO-2024-004', '550e8400-e29b-41d4-a716-446655440083', '550e8400-e29b-41d4-a716-446655440022', '2024-01-22', '2024-02-20', null, 'pending', 999.98, 80.00, 25.00, 1104.98, 'Research lab equipment');
+('550e8400-e29b-41d4-a716-446655440100', '550e8400-e29b-41d4-a716-446655440000', 'SO-2024-001', '550e8400-e29b-41d4-a716-446655440080', '550e8400-e29b-41d4-a716-446655440022', '2024-01-15', '2024-02-01', '2024-01-30', 'confirmed', 2649.97, 212.00, 50.00),
+('550e8400-e29b-41d4-a716-446655440101', '550e8400-e29b-41d4-a716-446655440000', 'SO-2024-002', '550e8400-e29b-41d4-a716-446655440081', '550e8400-e29b-41d4-a716-446655440022', '2024-01-18', '2024-02-15', '2024-02-10', 'processing', 1849.96, 147.00, 75.00),
+('550e8400-e29b-41d4-a716-446655440102', '550e8400-e29b-41d4-a716-446655440000', 'SO-2024-003', '550e8400-e29b-41d4-a716-446655440082', '550e8400-e29b-41d4-a716-446655440022', '2024-01-20', '2024-02-05', '2024-02-03', 'shipped', 3899.94, 312.00, 100.00),
+('550e8400-e29b-41d4-a716-446655440103', '550e8400-e29b-41d4-a716-446655440000', 'SO-2024-004', '550e8400-e29b-41d4-a716-446655440083', '550e8400-e29b-41d4-a716-446655440022', '2024-01-22', '2024-02-20', null, 'draft', 999.98, 80.00, 25.00);
 
 -- Insert Sales Order Line Items
-INSERT INTO sales_order_line_items (id, sales_order_id, product_id, quantity, unit_price, total_price, notes) VALUES
+INSERT INTO sales_order_items (id, sales_order_id, product_id, quantity, unit_price) VALUES
 -- SO-2024-001 items
-('550e8400-e29b-41d4-a716-446655440110', '550e8400-e29b-41d4-a716-446655440100', '550e8400-e29b-41d4-a716-446655440060', 2, 1299.99, 2599.98, 'Executive laptops'),
-('550e8400-e29b-41d4-a716-446655440111', '550e8400-e29b-41d4-a716-446655440100', '550e8400-e29b-41d4-a716-446655440061', 1, 49.99, 49.99, 'Wireless mouse'),
+('550e8400-e29b-41d4-a716-446655440110', '550e8400-e29b-41d4-a716-446655440100', '550e8400-e29b-41d4-a716-446655440060', 2, 1299.99),
+('550e8400-e29b-41d4-a716-446655440111', '550e8400-e29b-41d4-a716-446655440100', '550e8400-e29b-41d4-a716-446655440061', 1, 49.99),
 -- SO-2024-002 items
-('550e8400-e29b-41d4-a716-446655440112', '550e8400-e29b-41d4-a716-446655440101', '550e8400-e29b-41d4-a716-446655440060', 1, 1299.99, 1299.99, 'Developer laptop'),
-('550e8400-e29b-41d4-a716-446655440113', '550e8400-e29b-41d4-a716-446655440101', '550e8400-e29b-41d4-a716-446655440062', 2, 129.99, 259.98, 'Development keyboards'),
-('550e8400-e29b-41d4-a716-446655440114', '550e8400-e29b-41d4-a716-446655440101', '550e8400-e29b-41d4-a716-446655440061', 6, 49.99, 299.94, 'Team mice'),
+('550e8400-e29b-41d4-a716-446655440112', '550e8400-e29b-41d4-a716-446655440101', '550e8400-e29b-41d4-a716-446655440060', 1, 1299.99),
+('550e8400-e29b-41d4-a716-446655440113', '550e8400-e29b-41d4-a716-446655440101', '550e8400-e29b-41d4-a716-446655440062', 2, 129.99),
+('550e8400-e29b-41d4-a716-446655440114', '550e8400-e29b-41d4-a716-446655440101', '550e8400-e29b-41d4-a716-446655440061', 6, 49.99),
 -- SO-2024-003 items
-('550e8400-e29b-41d4-a716-446655440115', '550e8400-e29b-41d4-a716-446655440102', '550e8400-e29b-41d4-a716-446655440060', 3, 1299.99, 3899.97, 'Management laptops'),
+('550e8400-e29b-41d4-a716-446655440115', '550e8400-e29b-41d4-a716-446655440102', '550e8400-e29b-41d4-a716-446655440060', 3, 1299.99),
 -- SO-2024-004 items
-('550e8400-e29b-41d4-a716-446655440116', '550e8400-e29b-41d4-a716-446655440103', '550e8400-e29b-41d4-a716-446655440064', 2, 449.99, 899.98, 'Research monitors'),
-('550e8400-e29b-41d4-a716-446655440117', '550e8400-e29b-41d4-a716-446655440103', '550e8400-e29b-41d4-a716-446655440061', 2, 49.99, 99.98, 'Lab mice');
+('550e8400-e29b-41d4-a716-446655440116', '550e8400-e29b-41d4-a716-446655440103', '550e8400-e29b-41d4-a716-446655440064', 2, 449.99),
+('550e8400-e29b-41d4-a716-446655440117', '550e8400-e29b-41d4-a716-446655440103', '550e8400-e29b-41d4-a716-446655440061', 2, 49.99);
 
 -- Insert Invoices
 INSERT INTO invoices (id, company_id, invoice_number, customer_id, sales_order_id, invoice_date, due_date, status, subtotal, tax_amount, total_amount, paid_amount, balance_due, notes) VALUES
-('550e8400-e29b-41d4-a716-446655440120', '550e8400-e29b-41d4-a716-446655440000', 'INV-2024-001', '550e8400-e29b-41d4-a716-446655440080', '550e8400-e29b-41d4-a716-446655440100', '2024-01-30', '2024-03-01', 'paid', 2649.97, 212.00, 2861.97, 2861.97, 0.00, 'Payment received via wire transfer'),
-('550e8400-e29b-41d4-a716-446655440121', '550e8400-e29b-41d4-a716-446655440000', 'INV-2024-002', '550e8400-e29b-41d4-a716-446655440081', '550e8400-e29b-41d4-a716-446655440101', '2024-02-10', '2024-02-25', 'partial', 1849.96, 147.00, 1996.96, 1000.00, 996.96, 'Partial payment received'),
-('550e8400-e29b-41d4-a716-446655440122', '550e8400-e29b-41d4-a716-446655440000', 'INV-2024-003', '550e8400-e29b-41d4-a716-446655440082', '550e8400-e29b-41d4-a716-446655440102', '2024-02-03', '2024-03-20', 'sent', 3899.97, 312.00, 4211.97, 0.00, 4211.97, 'Invoice sent to customer'),
-('550e8400-e29b-41d4-a716-446655440123', '550e8400-e29b-41d4-a716-446655440000', 'INV-2024-004', '550e8400-e29b-41d4-a716-446655440083', null, '2024-01-10', '2024-01-25', 'overdue', 625.00, 50.00, 675.00, 0.00, 675.00, 'Support services - overdue payment');
+('550e8400-e29b-41d4-a716-446655440120', '550e8400-e29b-41d4-a716-446655440000', 'INV-2024-001', '550e8400-e29b-41d4-a716-446655440080', '550e8400-e29b-41d4-a716-446655440100', '2024-01-30', '2024-03-01', 'paid', 2649.97, 212.00, 2861.97, 2861.97),
+('550e8400-e29b-41d4-a716-446655440121', '550e8400-e29b-41d4-a716-446655440000', 'INV-2024-002', '550e8400-e29b-41d4-a716-446655440081', '550e8400-e29b-41d4-a716-446655440101', '2024-02-10', '2024-02-25', 'partial', 1849.96, 147.00, 1996.96, 1000.00),
+('550e8400-e29b-41d4-a716-446655440122', '550e8400-e29b-41d4-a716-446655440000', 'INV-2024-003', '550e8400-e29b-41d4-a716-446655440082', '550e8400-e29b-41d4-a716-446655440102', '2024-02-03', '2024-03-20', 'sent', 3899.97, 312.00, 4211.97, 0.00),
+('550e8400-e29b-41d4-a716-446655440123', '550e8400-e29b-41d4-a716-446655440000', 'INV-2024-004', '550e8400-e29b-41d4-a716-446655440083', null, '2024-01-10', '2024-01-25', 'overdue', 625.00, 50.00, 675.00, 0.00);
 
 -- Insert Invoice Line Items
-INSERT INTO invoice_line_items (id, invoice_id, product_id, quantity, unit_price, total_price, description) VALUES
+INSERT INTO invoice_items (id, invoice_id, product_id, quantity, unit_price, total_price, description) VALUES
 -- INV-2024-001 items (matches SO-2024-001)
-('550e8400-e29b-41d4-a716-446655440130', '550e8400-e29b-41d4-a716-446655440120', '550e8400-e29b-41d4-a716-446655440060', 2, 1299.99, 2599.98, 'TechFlow Pro Laptop'),
-('550e8400-e29b-41d4-a716-446655440131', '550e8400-e29b-41d4-a716-446655440120', '550e8400-e29b-41d4-a716-446655440061', 1, 49.99, 49.99, 'Wireless Precision Mouse'),
+('550e8400-e29b-41d4-a716-446655440130', '550e8400-e29b-41d4-a716-446655440120', '550e8400-e29b-41d4-a716-446655440060', 2, 1299.99),
+('550e8400-e29b-41d4-a716-446655440131', '550e8400-e29b-41d4-a716-446655440120', '550e8400-e29b-41d4-a716-446655440061', 1, 49.99),
 -- INV-2024-002 items (matches SO-2024-002)
-('550e8400-e29b-41d4-a716-446655440132', '550e8400-e29b-41d4-a716-446655440121', '550e8400-e29b-41d4-a716-446655440060', 1, 1299.99, 1299.99, 'TechFlow Pro Laptop'),
-('550e8400-e29b-41d4-a716-446655440133', '550e8400-e29b-41d4-a716-446655440121', '550e8400-e29b-41d4-a716-446655440062', 2, 129.99, 259.98, 'Mechanical Keyboard'),
-('550e8400-e29b-41d4-a716-446655440134', '550e8400-e29b-41d4-a716-446655440121', '550e8400-e29b-41d4-a716-446655440061', 6, 49.99, 299.94, 'Wireless Precision Mouse'),
+('550e8400-e29b-41d4-a716-446655440132', '550e8400-e29b-41d4-a716-446655440121', '550e8400-e29b-41d4-a716-446655440060', 1, 1299.99),
+('550e8400-e29b-41d4-a716-446655440133', '550e8400-e29b-41d4-a716-446655440121', '550e8400-e29b-41d4-a716-446655440062', 2, 129.99),
+('550e8400-e29b-41d4-a716-446655440134', '550e8400-e29b-41d4-a716-446655440121', '550e8400-e29b-41d4-a716-446655440061', 6, 49.99),
 -- INV-2024-003 items (matches SO-2024-003)
-('550e8400-e29b-41d4-a716-446655440135', '550e8400-e29b-41d4-a716-446655440122', '550e8400-e29b-41d4-a716-446655440060', 3, 1299.99, 3899.97, 'TechFlow Pro Laptop'),
+('550e8400-e29b-41d4-a716-446655440135', '550e8400-e29b-41d4-a716-446655440122', '550e8400-e29b-41d4-a716-446655440060', 3, 1299.99),
 -- INV-2024-004 items (service invoice)
-('550e8400-e29b-41d4-a716-446655440136', '550e8400-e29b-41d4-a716-446655440123', '550e8400-e29b-41d4-a716-446655440065', 5, 125.00, 625.00, 'Technical Support Services');
+('550e8400-e29b-41d4-a716-446655440136', '550e8400-e29b-41d4-a716-446655440123', '550e8400-e29b-41d4-a716-446655440065', 5, 125.00);
 
 -- Insert Stock Movements (sample inventory transactions)
-INSERT INTO stock_movements (id, warehouse_id, product_id, movement_type, quantity, reference_number, notes, moved_at) VALUES
-('550e8400-e29b-41d4-a716-446655440140', '550e8400-e29b-41d4-a716-446655440040', '550e8400-e29b-41d4-a716-446655440060', 'receipt', 30, 'PO-2024-001', 'Initial stock receipt', '2024-01-01'),
-('550e8400-e29b-41d4-a716-446655440141', '550e8400-e29b-41d4-a716-446655440040', '550e8400-e29b-41d4-a716-446655440061', 'receipt', 200, 'PO-2024-002', 'Mouse inventory replenishment', '2024-01-02'),
-('550e8400-e29b-41d4-a716-446655440142', '550e8400-e29b-41d4-a716-446655440040', '550e8400-e29b-41d4-a716-446655440060', 'shipment', -2, 'SO-2024-001', 'Shipped to Acme Corporation', '2024-01-30'),
-('550e8400-e29b-41d4-a716-446655440143', '550e8400-e29b-41d4-a716-446655440040', '550e8400-e29b-41d4-a716-446655440061', 'shipment', -1, 'SO-2024-001', 'Shipped to Acme Corporation', '2024-01-30'),
-('550e8400-e29b-41d4-a716-446655440144', '550e8400-e29b-41d4-a716-446655440040', '550e8400-e29b-41d4-a716-446655440062', 'receipt', 50, 'PO-2024-003', 'Keyboard stock receipt', '2024-01-15'),
-('550e8400-e29b-41d4-a716-446655440145', '550e8400-e29b-41d4-a716-446655440040', '550e8400-e29b-41d4-a716-446655440060', 'shipment', -3, 'SO-2024-003', 'Shipped to Global Solutions', '2024-02-03');
+INSERT INTO stock_movements (id, warehouse_id, product_id, movement_type, quantity, reference_number, notes, moved_at, created_by) VALUES
+('550e8400-e29b-41d4-a716-446655440140', '550e8400-e29b-41d4-a716-446655440040', '550e8400-e29b-41d4-a716-446655440060', 'receipt', 30, 'PO-2024-001', 'Initial stock receipt', '2024-01-01', '550e8400-e29b-41d4-a716-446655440020'),
+('550e8400-e29b-41d4-a716-446655440141', '550e8400-e29b-41d4-a716-446655440040', '550e8400-e29b-41d4-a716-446655440061', 'receipt', 200, 'PO-2024-002', 'Mouse inventory replenishment', '2024-01-02', '550e8400-e29b-41d4-a716-446655440020'),
+('550e8400-e29b-41d4-a716-446655440142', '550e8400-e29b-41d4-a716-446655440040', '550e8400-e29b-41d4-a716-446655440060', 'shipment', -2, 'SO-2024-001', 'Shipped to Acme Corporation', '2024-01-30', '550e8400-e29b-41d4-a716-446655440022'),
+('550e8400-e29b-41d4-a716-446655440143', '550e8400-e29b-41d4-a716-446655440040', '550e8400-e29b-41d4-a716-446655440061', 'shipment', -1, 'SO-2024-001', 'Shipped to Acme Corporation', '2024-01-30', '550e8400-e29b-41d4-a716-446655440022'),
+('550e8400-e29b-41d4-a716-446655440144', '550e8400-e29b-41d4-a716-446655440040', '550e8400-e29b-41d4-a716-446655440062', 'receipt', 50, 'PO-2024-003', 'Keyboard stock receipt', '2024-01-15', '550e8400-e29b-41d4-a716-446655440020'),
+('550e8400-e29b-41d4-a716-446655440145', '550e8400-e29b-41d4-a716-446655440040', '550e8400-e29b-41d4-a716-446655440060', 'shipment', -3, 'SO-2024-003', 'Shipped to Global Solutions', '2024-02-03', '550e8400-e29b-41d4-a716-446655440022');
 
 -- ==============================================
 -- COMPREHENSIVE SAMPLE DATA FOR NEW ERP MODULES
@@ -298,17 +298,17 @@ INSERT INTO accounts (id, company_id, account_number, name, account_type, is_act
 
 -- Journal Entries
 INSERT INTO journal_entries (id, company_id, entry_number, entry_date, description, reference, total_debit, total_credit, created_by) VALUES
-('550e8400-e29b-41d4-a716-446655441200', '550e8400-e29b-41d4-a716-446655440000', 'JE-2024-001', '2024-01-01', 'Opening balance', 'OPENING', 100000.00, 100000.00, '550e8400-e29b-41d4-a716-446655440020'),
-('550e8400-e29b-41d4-a716-446655441201', '550e8400-e29b-41d4-a716-446655440000', 'JE-2024-002', '2024-01-30', 'Sales invoice posting', 'INV-2024-001', 2861.97, 2861.97, '550e8400-e29b-41d4-a716-446655440023');
+('550e8400-e29b-41d4-a716-446655441200', '550e8400-e29b-41d4-a716-446655440000', 'JE-2024-001', '2024-01-01', 'Opening balance', 'OPENING', 100000.00),
+('550e8400-e29b-41d4-a716-446655441201', '550e8400-e29b-41d4-a716-446655440000', 'JE-2024-002', '2024-01-30', 'Sales invoice posting', 'INV-2024-001', 2861.97);
 
 INSERT INTO journal_entry_lines (id, journal_entry_id, account_id, description, debit_amount, credit_amount) VALUES
-('550e8400-e29b-41d4-a716-446655441210', '550e8400-e29b-41d4-a716-446655441200', '550e8400-e29b-41d4-a716-446655441100', 'Opening cash balance', 50000.00, 0.00),
-('550e8400-e29b-41d4-a716-446655441211', '550e8400-e29b-41d4-a716-446655441200', '550e8400-e29b-41d4-a716-446655441102', 'Opening inventory', 30000.00, 0.00),
-('550e8400-e29b-41d4-a716-446655441212', '550e8400-e29b-41d4-a716-446655441200', '550e8400-e29b-41d4-a716-446655441103', 'Equipment', 20000.00, 0.00),
-('550e8400-e29b-41d4-a716-446655441213', '550e8400-e29b-41d4-a716-446655441200', '550e8400-e29b-41d4-a716-446655441105', 'Owner equity', 0.00, 100000.00),
-('550e8400-e29b-41d4-a716-446655441214', '550e8400-e29b-41d4-a716-446655441201', '550e8400-e29b-41d4-a716-446655441101', 'A/R - Acme Corp', 2861.97, 0.00),
-('550e8400-e29b-41d4-a716-446655441215', '550e8400-e29b-41d4-a716-446655441201', '550e8400-e29b-41d4-a716-446655441106', 'Sales revenue', 0.00, 2649.97),
-('550e8400-e29b-41d4-a716-446655441216', '550e8400-e29b-41d4-a716-446655441201', '550e8400-e29b-41d4-a716-446655441104', 'Sales tax payable', 0.00, 212.00);
+('550e8400-e29b-41d4-a716-446655441210', '550e8400-e29b-41d4-a716-446655441200', '550e8400-e29b-41d4-a716-446655441100', 'Opening cash balance'),
+('550e8400-e29b-41d4-a716-446655441211', '550e8400-e29b-41d4-a716-446655441200', '550e8400-e29b-41d4-a716-446655441102', 'Opening inventory'),
+('550e8400-e29b-41d4-a716-446655441212', '550e8400-e29b-41d4-a716-446655441200', '550e8400-e29b-41d4-a716-446655441103', 'Equipment'),
+('550e8400-e29b-41d4-a716-446655441213', '550e8400-e29b-41d4-a716-446655441200', '550e8400-e29b-41d4-a716-446655441105', 'Owner equity'),
+('550e8400-e29b-41d4-a716-446655441214', '550e8400-e29b-41d4-a716-446655441201', '550e8400-e29b-41d4-a716-446655441101', 'A/R - Acme Corp'),
+('550e8400-e29b-41d4-a716-446655441215', '550e8400-e29b-41d4-a716-446655441201', '550e8400-e29b-41d4-a716-446655441106', 'Sales revenue'),
+('550e8400-e29b-41d4-a716-446655441216', '550e8400-e29b-41d4-a716-446655441201', '550e8400-e29b-41d4-a716-446655441104', 'Sales tax payable');
 
 -- Employee Data
 INSERT INTO employees (id, company_id, user_id, employee_number, department_id, job_title, hire_date, salary, hourly_rate, employment_type, manager_id, work_location, phone, emergency_contact_name, emergency_contact_phone, is_active) VALUES
@@ -332,10 +332,10 @@ INSERT INTO lead_sources (id, company_id, name, description, is_active) VALUES
 
 -- Lead Data
 INSERT INTO leads (id, company_id, lead_number, first_name, last_name, company_name, title, email, phone, mobile, website, address, city, state, postal_code, country, lead_source_id, status, rating, assigned_to, estimated_value, notes) VALUES
-('550e8400-e29b-41d4-a716-446655441500', '550e8400-e29b-41d4-a716-446655440000', 'LEAD-001', 'Jennifer', 'Wong', 'DataCorp Solutions', 'IT Director', 'j.wong@datacorp.com', '+1-555-2001', '+1-555-2002', 'https://datacorp.com', '789 Data Street', 'Palo Alto', 'CA', '94301', 'USA', '550e8400-e29b-41d4-a716-446655441400', 'qualified', 'hot', '550e8400-e29b-41d4-a716-446655441308', 25000.00, 'Interested in bulk laptop purchase for Q2'),
+('550e8400-e29b-41d4-a716-446655441500', '550e8400-e29b-41d4-a716-446655440000', 'LEAD-001', 'Jennifer', 'Wong', 'DataCorp Solutions', 'IT Director', 'j.wong@datacorp.com', '+1-555-2001', '+1-555-2002', 'https://datacorp.com', '789 Data Street', 'Palo Alto', 'CA', '94301', 'USA', '550e8400-e29b-41d4-a716-446655441400', 'qualified', 'hot', '550e8400-e29b-41d4-a716-446655441308'),
 ('550e8400-e29b-41d4-a716-446655441501', '550e8400-e29b-41d4-a716-446655440000', 'LEAD-002', 'Michael', 'Chen', 'StartupTech Inc', 'CEO', 'm.chen@startuptech.io', '+1-555-2003', '+1-555-2004', 'https://startuptech.io', '456 Innovation Ave', 'Mountain View', 'CA', '94041', 'USA', '550e8400-e29b-41d4-a716-446655441401', 'contacted', 'warm', '550e8400-e29b-41d4-a716-446655441308', 15000.00, 'Met at TechCrunch conference, follow up needed'),
-('550e8400-e29b-41d4-a716-446655441502', '550e8400-e29b-41d4-a716-446655440000', 'LEAD-003', 'Sarah', 'Anderson', 'CloudFirst Ltd', 'CTO', 's.anderson@cloudfirst.com', '+1-555-2005', null, 'https://cloudfirst.com', '123 Cloud Plaza', 'San Jose', 'CA', '95110', 'USA', '550e8400-e29b-41d4-a716-446655441402', 'new', 'cold', '550e8400-e29b-41d4-a716-446655441301', 8000.00, 'Referral from existing customer'),
-('550e8400-e29b-41d4-a716-446655441503', '550e8400-e29b-41d4-a716-446655440000', 'LEAD-004', 'Robert', 'Kim', 'DevOps Masters', 'DevOps Lead', 'r.kim@devopsmasters.com', '+1-555-2007', '+1-555-2008', null, '890 DevOps Way', 'Fremont', 'CA', '94536', 'USA', '550e8400-e29b-41d4-a716-446655441404', 'qualified', 'warm', '550e8400-e29b-41d4-a716-446655441308', 12000.00, 'Looking for monitoring solutions');
+('550e8400-e29b-41d4-a716-446655441502', '550e8400-e29b-41d4-a716-446655440000', 'LEAD-003', 'Sarah', 'Anderson', 'CloudFirst Ltd', 'CTO', 's.anderson@cloudfirst.com', '+1-555-2005', null, 'https://cloudfirst.com', '123 Cloud Plaza', 'San Jose', 'CA', '95110', 'USA', '550e8400-e29b-41d4-a716-446655441402', 'new', 'cold', '550e8400-e29b-41d4-a716-446655441301'),
+('550e8400-e29b-41d4-a716-446655441503', '550e8400-e29b-41d4-a716-446655440000', 'LEAD-004', 'Robert', 'Kim', 'DevOps Masters', 'DevOps Lead', 'r.kim@devopsmasters.com', '+1-555-2007', '+1-555-2008', null, '890 DevOps Way', 'Fremont', 'CA', '94536', 'USA', '550e8400-e29b-41d4-a716-446655441404', 'qualified', 'warm', '550e8400-e29b-41d4-a716-446655441308');
 
 -- Opportunities Data
 INSERT INTO opportunities (id, company_id, opportunity_number, name, customer_id, lead_id, assigned_to, stage, probability, amount, expected_close_date, lead_source_id, competitor, next_step, description, is_active) VALUES
@@ -346,17 +346,17 @@ INSERT INTO opportunities (id, company_id, opportunity_number, name, customer_id
 
 -- Opportunity Products
 INSERT INTO opportunity_products (id, opportunity_id, product_id, quantity, unit_price, discount_percent) VALUES
-('550e8400-e29b-41d4-a716-446655441700', '550e8400-e29b-41d4-a716-446655441600', '550e8400-e29b-41d4-a716-446655440060', 30, 1299.99, 5.00),
-('550e8400-e29b-41d4-a716-446655441701', '550e8400-e29b-41d4-a716-446655441600', '550e8400-e29b-41d4-a716-446655440064', 15, 449.99, 8.00),
-('550e8400-e29b-41d4-a716-446655441702', '550e8400-e29b-41d4-a716-446655441601', '550e8400-e29b-41d4-a716-446655440060', 20, 1299.99, 10.00),
-('550e8400-e29b-41d4-a716-446655441703', '550e8400-e29b-41d4-a716-446655441601', '550e8400-e29b-41d4-a716-446655440062', 25, 129.99, 0.00);
+('550e8400-e29b-41d4-a716-446655441700', '550e8400-e29b-41d4-a716-446655441600', '550e8400-e29b-41d4-a716-446655440060', 30),
+('550e8400-e29b-41d4-a716-446655441701', '550e8400-e29b-41d4-a716-446655441600', '550e8400-e29b-41d4-a716-446655440064', 15),
+('550e8400-e29b-41d4-a716-446655441702', '550e8400-e29b-41d4-a716-446655441601', '550e8400-e29b-41d4-a716-446655440060', 20),
+('550e8400-e29b-41d4-a716-446655441703', '550e8400-e29b-41d4-a716-446655441601', '550e8400-e29b-41d4-a716-446655440062', 25);
 
 -- Marketing Campaigns
 INSERT INTO campaigns (id, company_id, name, campaign_type, status, start_date, end_date, budget, actual_cost, target_audience, description, expected_response_rate, actual_response_rate, expected_revenue, actual_revenue, owner_id) VALUES
-('550e8400-e29b-41d4-a716-446655441800', '550e8400-e29b-41d4-a716-446655440000', 'Q1 2024 Product Launch', 'email', 'completed', '2024-01-01', '2024-01-31', 5000.00, 4750.00, 'Technology decision makers', 'Launch campaign for new laptop line', 3.50, 4.20, 75000.00, 95000.00, '550e8400-e29b-41d4-a716-446655441305'),
-('550e8400-e29b-41d4-a716-446655441801', '550e8400-e29b-41d4-a716-446655440000', 'Spring Trade Show Circuit', 'trade_show', 'active', '2024-03-01', '2024-05-31', 25000.00, 15000.00, 'Enterprise IT professionals', 'Presence at major technology trade shows', 5.00, null, 150000.00, 0.00, '550e8400-e29b-41d4-a716-446655441305'),
-('550e8400-e29b-41d4-a716-446655441802', '550e8400-e29b-41d4-a716-446655440000', 'LinkedIn Lead Generation', 'social_media', 'active', '2024-02-01', '2024-04-30', 8000.00, 3200.00, 'IT managers and CTOs', 'Targeted LinkedIn advertising campaign', 2.80, 3.10, 40000.00, 15000.00, '550e8400-e29b-41d4-a716-446655441305'),
-('550e8400-e29b-41d4-a716-446655441803', '550e8400-e29b-41d4-a716-446655440000', 'Customer Referral Program', 'other', 'planning', '2024-04-01', '2024-12-31', 12000.00, 0.00, 'Existing customers', 'Incentive program for customer referrals', 8.00, null, 80000.00, 0.00, '550e8400-e29b-41d4-a716-446655441301');
+('550e8400-e29b-41d4-a716-446655441800', '550e8400-e29b-41d4-a716-446655440000', 'Q1 2024 Product Launch', 'email', 'completed', '2024-01-01', '2024-01-31', 5000.00, 4750.00, 'Technology decision makers', 'Launch campaign for new laptop line', 3.50, 4.20, 75000.00),
+('550e8400-e29b-41d4-a716-446655441801', '550e8400-e29b-41d4-a716-446655440000', 'Spring Trade Show Circuit', 'trade_show', 'active', '2024-03-01', '2024-05-31', 25000.00, 15000.00, 'Enterprise IT professionals', 'Presence at major technology trade shows', 5.00, null, 150000.00),
+('550e8400-e29b-41d4-a716-446655441802', '550e8400-e29b-41d4-a716-446655440000', 'LinkedIn Lead Generation', 'social_media', 'active', '2024-02-01', '2024-04-30', 8000.00, 3200.00, 'IT managers and CTOs', 'Targeted LinkedIn advertising campaign', 2.80, 3.10, 40000.00),
+('550e8400-e29b-41d4-a716-446655441803', '550e8400-e29b-41d4-a716-446655440000', 'Customer Referral Program', 'other', 'planning', '2024-04-01', '2024-12-31', 12000.00, 0.00, 'Existing customers', 'Incentive program for customer referrals', 8.00, null, 80000.00);
 
 -- Campaign Members
 INSERT INTO campaign_members (id, campaign_id, lead_id, customer_id, status, response_date, notes) VALUES
@@ -429,11 +429,11 @@ INSERT INTO leave_types (id, company_id, name, description, max_days_per_year, c
 
 -- Leave Balances (current year)
 INSERT INTO leave_balances (id, employee_id, leave_type_id, year, allocated_days, used_days, pending_days) VALUES
-('550e8400-e29b-41d4-a716-446655442700', '550e8400-e29b-41d4-a716-446655441300', '550e8400-e29b-41d4-a716-446655442600', 2024, 20.00, 3.00, 2.00),
-('550e8400-e29b-41d4-a716-446655442701', '550e8400-e29b-41d4-a716-446655441300', '550e8400-e29b-41d4-a716-446655442601', 2024, 10.00, 1.00, 0.00),
-('550e8400-e29b-41d4-a716-446655442702', '550e8400-e29b-41d4-a716-446655441301', '550e8400-e29b-41d4-a716-446655442600', 2024, 20.00, 5.00, 0.00),
-('550e8400-e29b-41d4-a716-446655442703', '550e8400-e29b-41d4-a716-446655441302', '550e8400-e29b-41d4-a716-446655442600', 2024, 20.00, 2.00, 3.00),
-('550e8400-e29b-41d4-a716-446655442704', '550e8400-e29b-41d4-a716-446655441303', '550e8400-e29b-41d4-a716-446655442600', 2024, 15.00, 4.00, 0.00);
+('550e8400-e29b-41d4-a716-446655442700', '550e8400-e29b-41d4-a716-446655441300', '550e8400-e29b-41d4-a716-446655442600', 2024, 20.00),
+('550e8400-e29b-41d4-a716-446655442701', '550e8400-e29b-41d4-a716-446655441300', '550e8400-e29b-41d4-a716-446655442601', 2024, 10.00),
+('550e8400-e29b-41d4-a716-446655442702', '550e8400-e29b-41d4-a716-446655441301', '550e8400-e29b-41d4-a716-446655442600', 2024, 20.00),
+('550e8400-e29b-41d4-a716-446655442703', '550e8400-e29b-41d4-a716-446655441302', '550e8400-e29b-41d4-a716-446655442600', 2024, 20.00),
+('550e8400-e29b-41d4-a716-446655442704', '550e8400-e29b-41d4-a716-446655441303', '550e8400-e29b-41d4-a716-446655442600', 2024, 15.00);
 
 -- Leave Requests
 INSERT INTO leave_requests (id, employee_id, leave_type_id, start_date, end_date, days_requested, reason, status, approved_by, approved_at, notes) VALUES
@@ -450,15 +450,15 @@ INSERT INTO pay_periods (id, company_id, period_type, start_date, end_date, pay_
 
 -- Payroll Runs
 INSERT INTO payroll_runs (id, company_id, pay_period_id, run_date, status, total_gross_pay, total_deductions, total_net_pay, processed_by) VALUES
-('550e8400-e29b-41d4-a716-446655443000', '550e8400-e29b-41d4-a716-446655440000', '550e8400-e29b-41d4-a716-446655442900', '2024-01-18', 'processed', 28654.32, 8596.30, 20058.02, '550e8400-e29b-41d4-a716-446655441302'),
-('550e8400-e29b-41d4-a716-446655443001', '550e8400-e29b-41d4-a716-446655440000', '550e8400-e29b-41d4-a716-446655442901', '2024-02-01', 'processed', 28654.32, 8596.30, 20058.02, '550e8400-e29b-41d4-a716-446655441302');
+('550e8400-e29b-41d4-a716-446655443000', '550e8400-e29b-41d4-a716-446655440000', '550e8400-e29b-41d4-a716-446655442900', '2024-01-18', 'processed', 28654.32, 8596.30),
+('550e8400-e29b-41d4-a716-446655443001', '550e8400-e29b-41d4-a716-446655440000', '550e8400-e29b-41d4-a716-446655442901', '2024-02-01', 'processed', 28654.32, 8596.30);
 
 -- Payroll Items (sample for first payroll run)
 INSERT INTO payroll_items (id, payroll_run_id, employee_id, regular_hours, overtime_hours, regular_pay, overtime_pay, gross_pay, federal_tax, state_tax, social_security, medicare, health_insurance, retirement_401k, total_deductions) VALUES
-('550e8400-e29b-41d4-a716-446655443100', '550e8400-e29b-41d4-a716-446655443000', '550e8400-e29b-41d4-a716-446655441300', 80.00, 2.00, 3653.85, 109.62, 3763.47, 452.42, 150.54, 233.33, 54.57, 150.00, 285.00, 1325.86),
-('550e8400-e29b-41d4-a716-446655443101', '550e8400-e29b-41d4-a716-446655443000', '550e8400-e29b-41d4-a716-446655441301', 80.00, 0.00, 3269.23, 0.00, 3269.23, 392.31, 130.77, 202.69, 47.40, 120.00, 245.52, 1138.69),
-('550e8400-e29b-41d4-a716-446655443102', '550e8400-e29b-41d4-a716-446655443000', '550e8400-e29b-41d4-a716-446655441302', 80.00, 0.00, 3461.54, 0.00, 3461.54, 415.38, 138.46, 214.62, 50.19, 150.00, 259.62, 1228.27),
-('550e8400-e29b-41d4-a716-446655443103', '550e8400-e29b-41d4-a716-446655443000', '550e8400-e29b-41d4-a716-446655441304', 80.00, 0.00, 1800.00, 0.00, 1800.00, 216.00, 72.00, 111.60, 26.10, 0.00, 0.00, 425.70);
+('550e8400-e29b-41d4-a716-446655443100', '550e8400-e29b-41d4-a716-446655443000', '550e8400-e29b-41d4-a716-446655441300', 80.00, 2.00, 3653.85, 109.62, 3763.47, 452.42, 150.54, 233.33, 54.57, 150.00),
+('550e8400-e29b-41d4-a716-446655443101', '550e8400-e29b-41d4-a716-446655443000', '550e8400-e29b-41d4-a716-446655441301', 80.00, 0.00, 3269.23, 0.00, 3269.23, 392.31, 130.77, 202.69, 47.40, 120.00),
+('550e8400-e29b-41d4-a716-446655443102', '550e8400-e29b-41d4-a716-446655443000', '550e8400-e29b-41d4-a716-446655441302', 80.00, 0.00, 3461.54, 0.00, 3461.54, 415.38, 138.46, 214.62, 50.19, 150.00),
+('550e8400-e29b-41d4-a716-446655443103', '550e8400-e29b-41d4-a716-446655443000', '550e8400-e29b-41d4-a716-446655441304', 80.00, 0.00, 1800.00, 0.00, 1800.00, 216.00, 72.00, 111.60, 26.10, 0.00);
 
 -- Time Entries
 INSERT INTO time_entries (id, employee_id, date, clock_in, clock_out, break_minutes, regular_hours, overtime_hours, status, approved_by, approved_at) VALUES
@@ -489,18 +489,18 @@ INSERT INTO training_sessions (id, training_program_id, instructor_name, start_d
 ('550e8400-e29b-41d4-a716-446655443602', '550e8400-e29b-41d4-a716-446655443502', 'Leadership Experts LLC', '2024-04-10', '2024-04-12', 'Offsite Training Center', 8, 'scheduled');
 
 INSERT INTO training_enrollments (training_session_id, employee_id, enrollment_date, completion_date, status, score, certificate_issued) VALUES
-('550e8400-e29b-41d4-a716-446655443601', '550e8400-e29b-41d4-a716-446655441304', '2024-02-10', '2024-02-15', 'completed', 95.00, true),
-('550e8400-e29b-41d4-a716-446655443601', '550e8400-e29b-41d4-a716-446655441303', '2024-02-10', '2024-02-15', 'completed', 88.00, true),
+('550e8400-e29b-41d4-a716-446655443601', '550e8400-e29b-41d4-a716-446655441304', '2024-02-10', '2024-02-15', 'completed'),
+('550e8400-e29b-41d4-a716-446655443601', '550e8400-e29b-41d4-a716-446655441303', '2024-02-10', '2024-02-15', 'completed'),
 ('550e8400-e29b-41d4-a716-446655443600', '550e8400-e29b-41d4-a716-446655441304', '2024-02-25', null, 'enrolled', null, false);
 
 -- Manufacturing Data
 
 -- Work Centers
 INSERT INTO work_centers (id, company_id, code, name, description, capacity_per_hour, efficiency_percentage, setup_time_minutes, hourly_rate, is_active) VALUES
-('550e8400-e29b-41d4-a716-446655443700', '550e8400-e29b-41d4-a716-446655440000', 'ASSEMBLY-01', 'Main Assembly Line', 'Primary laptop assembly station', 5.00, 95.00, 30, 45.00, true),
-('550e8400-e29b-41d4-a716-446655443701', '550e8400-e29b-41d4-a716-446655440000', 'TESTING-01', 'Quality Testing Station', 'Final product testing and validation', 8.00, 98.00, 15, 55.00, true),
-('550e8400-e29b-41d4-a716-446655443702', '550e8400-e29b-41d4-a716-446655440000', 'PACKAGING-01', 'Packaging Station', 'Product packaging and shipping prep', 12.00, 90.00, 10, 25.00, true),
-('550e8400-e29b-41d4-a716-446655443703', '550e8400-e29b-41d4-a716-446655440000', 'CONFIG-01', 'Configuration Center', 'Software installation and configuration', 6.00, 92.00, 20, 50.00, true);
+('550e8400-e29b-41d4-a716-446655443700', '550e8400-e29b-41d4-a716-446655440000', 'ASSEMBLY-01', 'Main Assembly Line', 'Primary laptop assembly station', 5.00, 95.00, 30),
+('550e8400-e29b-41d4-a716-446655443701', '550e8400-e29b-41d4-a716-446655440000', 'TESTING-01', 'Quality Testing Station', 'Final product testing and validation', 8.00, 98.00, 15),
+('550e8400-e29b-41d4-a716-446655443702', '550e8400-e29b-41d4-a716-446655440000', 'PACKAGING-01', 'Packaging Station', 'Product packaging and shipping prep', 12.00, 90.00, 10),
+('550e8400-e29b-41d4-a716-446655443703', '550e8400-e29b-41d4-a716-446655440000', 'CONFIG-01', 'Configuration Center', 'Software installation and configuration', 6.00, 92.00, 20);
 
 -- BOM Headers
 INSERT INTO bom_headers (id, company_id, product_id, version, is_active, effective_date, created_by) VALUES
@@ -583,12 +583,12 @@ INSERT INTO project_phases (id, project_id, name, description, planned_start_dat
 
 -- Project Tasks
 INSERT INTO project_tasks (id, project_id, phase_id, parent_task_id, task_code, name, description, assigned_to, planned_start_date, planned_end_date, actual_start_date, actual_end_date, estimated_hours, actual_hours, status, priority, completion_percentage, is_milestone) VALUES
-('550e8400-e29b-41d4-a716-446655444900', '550e8400-e29b-41d4-a716-446655444700', '550e8400-e29b-41d4-a716-446655444800', null, 'TASK-001', 'Requirements Gathering', 'Collect and document business requirements', '550e8400-e29b-41d4-a716-446655441300', '2024-01-15', '2024-01-30', '2024-01-15', '2024-01-28', 80.00, 75.00, 'completed', 1, 100.00, false),
-('550e8400-e29b-41d4-a716-446655444901', '550e8400-e29b-41d4-a716-446655444700', '550e8400-e29b-41d4-a716-446655444800', null, 'TASK-002', 'Technical Design', 'Create technical architecture and design documents', '550e8400-e29b-41d4-a716-446655441306', '2024-01-31', '2024-02-15', '2024-01-29', '2024-02-10', 60.00, 65.00, 'completed', 1, 100.00, true),
-('550e8400-e29b-41d4-a716-446655444902', '550e8400-e29b-41d4-a716-446655444700', '550e8400-e29b-41d4-a716-446655444801', null, 'TASK-003', 'Database Development', 'Set up database and core data structures', '550e8400-e29b-41d4-a716-446655441306', '2024-02-16', '2024-03-15', '2024-02-16', null, 120.00, 85.00, 'in_progress', 1, 70.00, false),
-('550e8400-e29b-41d4-a716-446655444903', '550e8400-e29b-41d4-a716-446655444700', '550e8400-e29b-41d4-a716-446655444801', null, 'TASK-004', 'Frontend Development', 'Build user interface components', '550e8400-e29b-41d4-a716-446655441306', '2024-03-01', '2024-04-30', null, null, 200.00, 0.00, 'not_started', 2, 0.00, false),
-('550e8400-e29b-41d4-a716-446655444904', '550e8400-e29b-41d4-a716-446655444701', '550e8400-e29b-41d4-a716-446655444803', null, 'TASK-005', 'Wireframe Creation', 'Create wireframes for all pages', '550e8400-e29b-41d4-a716-446655441306', '2024-02-01', '2024-02-15', '2024-02-01', '2024-02-12', 40.00, 38.00, 'completed', 1, 100.00, false),
-('550e8400-e29b-41d4-a716-446655444905', '550e8400-e29b-41d4-a716-446655444701', '550e8400-e29b-41d4-a716-446655444803', null, 'TASK-006', 'UI Design', 'Create visual designs and prototypes', '550e8400-e29b-41d4-a716-446655441306', '2024-02-16', '2024-02-28', '2024-02-16', null, 60.00, 25.00, 'in_progress', 1, 40.00, false);
+('550e8400-e29b-41d4-a716-446655444900', '550e8400-e29b-41d4-a716-446655444700', '550e8400-e29b-41d4-a716-446655444800', null, 'TASK-001', 'Requirements Gathering', 'Collect and document business requirements', '550e8400-e29b-41d4-a716-446655441300', '2024-01-15', '2024-01-30', '2024-01-15', '2024-01-28', 80.00, 75.00, 'completed', 1),
+('550e8400-e29b-41d4-a716-446655444901', '550e8400-e29b-41d4-a716-446655444700', '550e8400-e29b-41d4-a716-446655444800', null, 'TASK-002', 'Technical Design', 'Create technical architecture and design documents', '550e8400-e29b-41d4-a716-446655441306', '2024-01-31', '2024-02-15', '2024-01-29', '2024-02-10', 60.00, 65.00, 'completed', 1),
+('550e8400-e29b-41d4-a716-446655444902', '550e8400-e29b-41d4-a716-446655444700', '550e8400-e29b-41d4-a716-446655444801', null, 'TASK-003', 'Database Development', 'Set up database and core data structures', '550e8400-e29b-41d4-a716-446655441306', '2024-02-16', '2024-03-15', '2024-02-16', null, 120.00, 85.00, 'in_progress', 1),
+('550e8400-e29b-41d4-a716-446655444903', '550e8400-e29b-41d4-a716-446655444700', '550e8400-e29b-41d4-a716-446655444801', null, 'TASK-004', 'Frontend Development', 'Build user interface components', '550e8400-e29b-41d4-a716-446655441306', '2024-03-01', '2024-04-30', null, null, 200.00, 0.00, 'not_started', 2),
+('550e8400-e29b-41d4-a716-446655444904', '550e8400-e29b-41d4-a716-446655444701', '550e8400-e29b-41d4-a716-446655444803', null, 'TASK-005', 'Wireframe Creation', 'Create wireframes for all pages', '550e8400-e29b-41d4-a716-446655441306', '2024-02-01', '2024-02-15', '2024-02-01', '2024-02-12', 40.00, 38.00, 'completed', 1),
+('550e8400-e29b-41d4-a716-446655444905', '550e8400-e29b-41d4-a716-446655444701', '550e8400-e29b-41d4-a716-446655444803', null, 'TASK-006', 'UI Design', 'Create visual designs and prototypes', '550e8400-e29b-41d4-a716-446655441306', '2024-02-16', '2024-02-28', '2024-02-16', null, 60.00, 25.00, 'in_progress', 1);
 
 -- Task Dependencies
 INSERT INTO task_dependencies (predecessor_task_id, successor_task_id, dependency_type, lag_days) VALUES
@@ -665,17 +665,17 @@ INSERT INTO system_settings (id, company_id, setting_key, setting_value, setting
 -- KPIs
 INSERT INTO kpis (id, company_id, name, description, category, calculation_method, target_value, unit_of_measure, frequency, owner_id, is_active) VALUES
 ('550e8400-e29b-41d4-a716-446655445900', '550e8400-e29b-41d4-a716-446655440000', 'Monthly Sales Revenue', 'Total sales revenue per month', 'Sales', 'SUM(invoice_total) WHERE status = paid', 200000.0000, 'USD', 'monthly', '550e8400-e29b-41d4-a716-446655441301', true),
-('550e8400-e29b-41d4-a716-446655445901', '550e8400-e29b-41d4-a716-446655440000', 'Customer Satisfaction Score', 'Average customer satisfaction rating', 'Customer Service', 'AVG(satisfaction_rating)', 4.5000, 'Rating (1-5)', 'monthly', '550e8400-e29b-41d4-a716-446655441301', true),
+('550e8400-e29b-41d4-a716-446655445901', '550e8400-e29b-41d4-a716-446655440000', 'Customer Satisfaction Score', 'Average customer satisfaction rating', 'Customer Service', 'AVG(satisfaction_rating)')', 'monthly', '550e8400-e29b-41d4-a716-446655441301', true),
 ('550e8400-e29b-41d4-a716-446655445902', '550e8400-e29b-41d4-a716-446655440000', 'Inventory Turnover', 'Number of times inventory is sold per year', 'Operations', 'COGS / Average Inventory', 12.0000, 'Times per year', 'quarterly', '550e8400-e29b-41d4-a716-446655441300', true),
 ('550e8400-e29b-41d4-a716-446655445903', '550e8400-e29b-41d4-a716-446655440000', 'Employee Retention Rate', 'Percentage of employees retained', 'HR', '(Employees at end - New hires) / Employees at start * 100', 95.0000, 'Percentage', 'quarterly', '550e8400-e29b-41d4-a716-446655441302', true);
 
 -- KPI Values
 INSERT INTO kpi_values (id, kpi_id, period_date, actual_value, target_value, notes) VALUES
-('550e8400-e29b-41d4-a716-446655446000', '550e8400-e29b-41d4-a716-446655445900', '2024-01-31', 185000.0000, 200000.0000, 'Slightly below target due to seasonal factors'),
-('550e8400-e29b-41d4-a716-446655446001', '550e8400-e29b-41d4-a716-446655445900', '2024-02-29', 220000.0000, 200000.0000, 'Exceeded target with new product launch'),
-('550e8400-e29b-41d4-a716-446655446002', '550e8400-e29b-41d4-a716-446655445901', '2024-01-31', 4.2000, 4.5000, 'Need to focus on customer service improvements'),
-('550e8400-e29b-41d4-a716-446655446003', '550e8400-e29b-41d4-a716-446655445902', '2024-03-31', 11.5000, 12.0000, 'Q1 inventory turnover close to target'),
-('550e8400-e29b-41d4-a716-446655446004', '550e8400-e29b-41d4-a716-446655445903', '2024-03-31', 97.0000, 95.0000, 'Excellent retention rate this quarter');
+('550e8400-e29b-41d4-a716-446655446000', '550e8400-e29b-41d4-a716-446655445900', '2024-01-31', 185000.0000),
+('550e8400-e29b-41d4-a716-446655446001', '550e8400-e29b-41d4-a716-446655445900', '2024-02-29', 220000.0000),
+('550e8400-e29b-41d4-a716-446655446002', '550e8400-e29b-41d4-a716-446655445901', '2024-01-31', 4.2000),
+('550e8400-e29b-41d4-a716-446655446003', '550e8400-e29b-41d4-a716-446655445902', '2024-03-31', 11.5000),
+('550e8400-e29b-41d4-a716-446655446004', '550e8400-e29b-41d4-a716-446655445903', '2024-03-31', 97.0000);
 
 -- Reports
 INSERT INTO reports (id, company_id, name, description, report_type, query_sql, parameters, is_public, created_by, is_active) VALUES

@@ -379,6 +379,20 @@ CREATE TABLE inventory (
     UNIQUE(product_id, warehouse_id)
 );
 
+-- Inventory Movements/Transactions
+CREATE TABLE stock_movements (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    warehouse_id UUID REFERENCES warehouses(id) ON DELETE CASCADE,
+    product_id UUID REFERENCES products(id) ON DELETE CASCADE,
+    movement_type VARCHAR(20) NOT NULL CHECK (movement_type IN ('receipt', 'shipment', 'transfer_in', 'transfer_out', 'adjustment', 'return')),
+    quantity INTEGER NOT NULL,
+    reference_number VARCHAR(100),
+    notes TEXT,
+    moved_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    created_by UUID REFERENCES users(id),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Sales Orders
 CREATE TABLE sales_orders (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
