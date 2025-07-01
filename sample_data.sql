@@ -527,8 +527,8 @@ INSERT INTO routing_operations (id, routing_id, operation_number, work_center_id
 
 -- Production Orders
 INSERT INTO production_orders (id, company_id, order_number, product_id, bom_header_id, routing_id, quantity_to_produce, quantity_produced, planned_start_date, planned_end_date, status, priority, sales_order_id, created_by) VALUES
-('550e8400-e29b-41d4-a716-446655444200', '550e8400-e29b-41d4-a716-446655440000', 'PO-2024-001', '550e8400-e29b-41d4-a716-446655440060', '550e8400-e29b-41d4-a716-446655443800', '550e8400-e29b-41d4-a716-446655444000', 50.0000, 25.0000, '2024-02-01', '2024-02-15', 'in_progress', 3, '550e8400-e29b-41d4-a716-446655440100', '550e8400-e29b-41d4-a716-446655441300'),
-('550e8400-e29b-41d4-a716-446655444201', '550e8400-e29b-41d4-a716-446655440000', 'PO-2024-002', '550e8400-e29b-41d4-a716-446655440064', '550e8400-e29b-41d4-a716-446655443801', '550e8400-e29b-41d4-a716-446655444001', 30.0000, 0.0000, '2024-02-20', '2024-03-05', 'planned', 2, null, '550e8400-e29b-41d4-a716-446655441300');
+('550e8400-e29b-41d4-a716-446655444200', '550e8400-e29b-41d4-a716-446655440000', 'PO-2024-001', '550e8400-e29b-41d4-a716-446655440060', '550e8400-e29b-41d4-a716-446655443800', '550e8400-e29b-41d4-a716-446655444000', 50.0000, 25.0000, '2024-02-01', '2024-02-15', 'in_progress', 3, '550e8400-e29b-41d4-a716-446655440100', '550e8400-e29b-41d4-a716-446655440023'),
+('550e8400-e29b-41d4-a716-446655444201', '550e8400-e29b-41d4-a716-446655440000', 'PO-2024-002', '550e8400-e29b-41d4-a716-446655440064', '550e8400-e29b-41d4-a716-446655443801', '550e8400-e29b-41d4-a716-446655444001', 30.0000, 0.0000, '2024-02-20', '2024-03-05', 'planned', 2, null, '550e8400-e29b-41d4-a716-446655440023');
 
 -- Work Orders
 INSERT INTO work_orders (id, production_order_id, routing_operation_id, operation_number, work_center_id, planned_quantity, actual_quantity, planned_start_date, planned_end_date, status, assigned_to) VALUES
@@ -583,12 +583,12 @@ INSERT INTO project_phases (id, project_id, name, description, planned_start_dat
 
 -- Project Tasks
 INSERT INTO project_tasks (id, project_id, phase_id, parent_task_id, task_code, name, description, assigned_to, planned_start_date, planned_end_date, actual_start_date, actual_end_date, estimated_hours, actual_hours, status, priority, completion_percentage, is_milestone) VALUES
-('550e8400-e29b-41d4-a716-446655444900', '550e8400-e29b-41d4-a716-446655444700', '550e8400-e29b-41d4-a716-446655444800', null, 'TASK-001', 'Requirements Gathering', 'Collect and document business requirements', '550e8400-e29b-41d4-a716-446655441300', '2024-01-15', '2024-01-30', '2024-01-15', '2024-01-28', 80.00, 75.00, 'completed', 1),
-('550e8400-e29b-41d4-a716-446655444901', '550e8400-e29b-41d4-a716-446655444700', '550e8400-e29b-41d4-a716-446655444800', null, 'TASK-002', 'Technical Design', 'Create technical architecture and design documents', '550e8400-e29b-41d4-a716-446655441306', '2024-01-31', '2024-02-15', '2024-01-29', '2024-02-10', 60.00, 65.00, 'completed', 1),
-('550e8400-e29b-41d4-a716-446655444902', '550e8400-e29b-41d4-a716-446655444700', '550e8400-e29b-41d4-a716-446655444801', null, 'TASK-003', 'Database Development', 'Set up database and core data structures', '550e8400-e29b-41d4-a716-446655441306', '2024-02-16', '2024-03-15', '2024-02-16', null, 120.00, 85.00, 'in_progress', 1),
-('550e8400-e29b-41d4-a716-446655444903', '550e8400-e29b-41d4-a716-446655444700', '550e8400-e29b-41d4-a716-446655444801', null, 'TASK-004', 'Frontend Development', 'Build user interface components', '550e8400-e29b-41d4-a716-446655441306', '2024-03-01', '2024-04-30', null, null, 200.00, 0.00, 'not_started', 2),
-('550e8400-e29b-41d4-a716-446655444904', '550e8400-e29b-41d4-a716-446655444701', '550e8400-e29b-41d4-a716-446655444803', null, 'TASK-005', 'Wireframe Creation', 'Create wireframes for all pages', '550e8400-e29b-41d4-a716-446655441306', '2024-02-01', '2024-02-15', '2024-02-01', '2024-02-12', 40.00, 38.00, 'completed', 1),
-('550e8400-e29b-41d4-a716-446655444905', '550e8400-e29b-41d4-a716-446655444701', '550e8400-e29b-41d4-a716-446655444803', null, 'TASK-006', 'UI Design', 'Create visual designs and prototypes', '550e8400-e29b-41d4-a716-446655441306', '2024-02-16', '2024-02-28', '2024-02-16', null, 60.00, 25.00, 'in_progress', 1);
+('550e8400-e29b-41d4-a716-446655444900', '550e8400-e29b-41d4-a716-446655444700', '550e8400-e29b-41d4-a716-446655444800', null, 'TASK-001', 'Requirements Gathering', 'Collect and document business requirements', '550e8400-e29b-41d4-a716-446655441300', '2024-01-15', '2024-01-30', '2024-01-15', '2024-01-28', 80.00, 75.00, 'completed', 1, 100.00, false),
+('550e8400-e29b-41d4-a716-446655444901', '550e8400-e29b-41d4-a716-446655444700', '550e8400-e29b-41d4-a716-446655444800', null, 'TASK-002', 'Technical Design', 'Create technical architecture and design documents', '550e8400-e29b-41d4-a716-446655441306', '2024-01-31', '2024-02-15', '2024-01-29', '2024-02-10', 60.00, 65.00, 'completed', 1, 100.00, true),
+('550e8400-e29b-41d4-a716-446655444902', '550e8400-e29b-41d4-a716-446655444700', '550e8400-e29b-41d4-a716-446655444801', null, 'TASK-003', 'Database Development', 'Set up database and core data structures', '550e8400-e29b-41d4-a716-446655441306', '2024-02-16', '2024-03-15', '2024-02-16', null, 120.00, 85.00, 'in_progress', 1, 70.00, false),
+('550e8400-e29b-41d4-a716-446655444903', '550e8400-e29b-41d4-a716-446655444700', '550e8400-e29b-41d4-a716-446655444801', null, 'TASK-004', 'Frontend Development', 'Build user interface components', '550e8400-e29b-41d4-a716-446655441306', '2024-03-01', '2024-04-30', null, null, 200.00, 0.00, 'not_started', 2, 0.00, false),
+('550e8400-e29b-41d4-a716-446655444904', '550e8400-e29b-41d4-a716-446655444701', '550e8400-e29b-41d4-a716-446655444803', null, 'TASK-005', 'Wireframe Creation', 'Create wireframes for all pages', '550e8400-e29b-41d4-a716-446655441306', '2024-02-01', '2024-02-15', '2024-02-01', '2024-02-12', 40.00, 38.00, 'completed', 1, 100.00, false),
+('550e8400-e29b-41d4-a716-446655444905', '550e8400-e29b-41d4-a716-446655444701', '550e8400-e29b-41d4-a716-446655444803', null, 'TASK-006', 'UI Design', 'Create visual designs and prototypes', '550e8400-e29b-41d4-a716-446655441306', '2024-02-16', '2024-02-28', '2024-02-16', null, 60.00, 25.00, 'in_progress', 1, 42.00, false);
 
 -- Task Dependencies
 INSERT INTO task_dependencies (predecessor_task_id, successor_task_id, dependency_type, lag_days) VALUES
@@ -635,8 +635,8 @@ INSERT INTO fixed_assets (id, company_id, asset_number, name, description, categ
 
 -- Budget Periods
 INSERT INTO budget_periods (id, company_id, name, start_date, end_date, period_type, status, created_by) VALUES
-('550e8400-e29b-41d4-a716-446655445500', '550e8400-e29b-41d4-a716-446655440000', '2024 Annual Budget', '2024-01-01', '2024-12-31', 'annual', 'active', '550e8400-e29b-41d4-a716-446655441302'),
-('550e8400-e29b-41d4-a716-446655445501', '550e8400-e29b-41d4-a716-446655440000', '2024 Q1 Budget', '2024-01-01', '2024-03-31', 'quarterly', 'active', '550e8400-e29b-41d4-a716-446655441302');
+('550e8400-e29b-41d4-a716-446655445500', '550e8400-e29b-41d4-a716-446655440000', '2024 Annual Budget', '2024-01-01', '2024-12-31', 'annual', 'active', '550e8400-e29b-41d4-a716-446655440023'),
+('550e8400-e29b-41d4-a716-446655445501', '550e8400-e29b-41d4-a716-446655440000', '2024 Q1 Budget', '2024-01-01', '2024-03-31', 'quarterly', 'active', '550e8400-e29b-41d4-a716-446655440023');
 
 -- Budget Categories
 INSERT INTO budget_categories (id, company_id, name, description, category_type, account_id, is_active) VALUES
