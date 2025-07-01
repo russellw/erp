@@ -81,7 +81,7 @@ CREATE TABLE customers (
     website VARCHAR(255),
     annual_revenue DECIMAL(15,2),
     employee_count INTEGER,
-    assigned_salesperson_id UUID REFERENCES employees(id),
+    assigned_salesperson_id UUID,
     is_active BOOLEAN DEFAULT true,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP

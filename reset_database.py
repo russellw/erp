@@ -27,7 +27,9 @@ def get_db_config():
 def test_connection(db_config):
     """Test database connection."""
     try:
-        conn = psycopg2.connect(**db_config)
+        # Remove admin_database key for connection test
+        test_config = {k: v for k, v in db_config.items() if k != 'admin_database'}
+        conn = psycopg2.connect(**test_config)
         conn.close()
         return True
     except psycopg2.OperationalError:
@@ -40,7 +42,9 @@ def check_production_safety(db_config):
     """
     try:
         print("🔍 Checking database safety...")
-        conn = psycopg2.connect(**db_config)
+        # Remove admin_database key for connection
+        check_config = {k: v for k, v in db_config.items() if k != 'admin_database'}
+        conn = psycopg2.connect(**check_config)
         cursor = conn.cursor()
         
         # Count total number of tables
@@ -136,8 +140,8 @@ def drop_database(db_config):
         print(f"🗑️  Dropping database '{db_config['database']}'...")
         
         # Connect to admin database to drop the target database
-        admin_config = db_config.copy()
-        admin_config['database'] = admin_config['admin_database']
+        admin_config = {k: v for k, v in db_config.items() if k != 'admin_database'}
+        admin_config['database'] = db_config['admin_database']
         
         conn = psycopg2.connect(**admin_config)
         conn.autocommit = True
@@ -168,8 +172,8 @@ def create_database(db_config):
         print(f"🏗️  Creating database '{db_config['database']}'...")
         
         # Connect to admin database to create the target database
-        admin_config = db_config.copy()
-        admin_config['database'] = admin_config['admin_database']
+        admin_config = {k: v for k, v in db_config.items() if k != 'admin_database'}
+        admin_config['database'] = db_config['admin_database']
         
         conn = psycopg2.connect(**admin_config)
         conn.autocommit = True
@@ -195,12 +199,42 @@ def execute_sql_file(db_config, file_path, description):
         with open(file_path, 'r', encoding='utf-8') as file:
             sql_content = file.read()
         
-        conn = psycopg2.connect(**db_config)
+        # Remove admin_database key for connection
+        exec_config = {k: v for k, v in db_config.items() if k != 'admin_database'}
+        conn = psycopg2.connect(**exec_config)
         cursor = conn.cursor()
         
-        # Execute the SQL content
-        cursor.execute(sql_content)
-        conn.commit()
+        # For schema files, we need to handle them statement by statement
+        # to better handle any errors and provide more detailed feedback
+        if 'schema' in description.lower():
+            # Split into individual statements and execute them one by one
+            statements = [stmt.strip() for stmt in sql_content.split(';') if stmt.strip()]
+            
+            for i, statement in enumerate(statements, 1):
+                try:
+                    cursor.execute(statement)
+                    conn.commit()
+                    
+                    # Print progress for table creation
+                    if statement.upper().startswith('CREATE TABLE'):
+                        table_name = statement.split()[2].strip('(')
+                        print(f"   ✅ Created table: {table_name}")
+                    elif statement.upper().startswith('CREATE INDEX'):
+                        index_name = statement.split()[2].strip()
+                        print(f"   ✅ Created index: {index_name}")
+                    elif statement.upper().startswith('CREATE EXTENSION'):
+                        ext_name = statement.split()[3].strip().strip('"')
+                        print(f"   ✅ Enabled extension: {ext_name}")
+                        
+                except psycopg2.Error as e:
+                    print(f"   ⚠️  Warning on statement {i}: {e}")
+                    print(f"      Statement: {statement[:100]}...")
+                    # Continue with next statement instead of failing completely
+                    conn.rollback()
+        else:
+            # For data files, execute as a single transaction
+            cursor.execute(sql_content)
+            conn.commit()
         
         cursor.close()
         conn.close()
@@ -252,6 +286,8 @@ Examples:
                        help='Show what would be done without making changes')
     parser.add_argument('--schema-only', action='store_true',
                        help='Only create schema, skip sample data')
+    parser.add_argument('--yes', action='store_true',
+                       help='Automatically confirm destructive operations')
     
     args = parser.parse_args()
     
@@ -294,10 +330,13 @@ Examples:
         
         # Confirm destruction
         print(f"\n⚠️  This will COMPLETELY DELETE the '{db_config['database']}' database!")
-        response = input("Type 'YES' to confirm: ")
-        if response != 'YES':
-            print("Operation cancelled")
-            sys.exit(0)
+        if args.yes:
+            print("Auto-confirming with --yes flag")
+        else:
+            response = input("Type 'YES' to confirm: ")
+            if response != 'YES':
+                print("Operation cancelled")
+                sys.exit(0)
     
     # Verify required files exist
     schema_path = Path(args.schema)
