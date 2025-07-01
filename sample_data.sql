@@ -647,18 +647,18 @@ INSERT INTO budget_categories (id, company_id, name, description, category_type,
 
 -- Budget Lines
 INSERT INTO budget_lines (id, budget_period_id, budget_category_id, department_id, account_id, budgeted_amount, actual_amount, notes, created_by) VALUES
-('550e8400-e29b-41d4-a716-446655445700', '550e8400-e29b-41d4-a716-446655445500', '550e8400-e29b-41d4-a716-446655445600', '550e8400-e29b-41d4-a716-446655440030', '550e8400-e29b-41d4-a716-446655441106', 2500000.00, 650000.00, 'Annual sales revenue target', '550e8400-e29b-41d4-a716-446655441302'),
-('550e8400-e29b-41d4-a716-446655445701', '550e8400-e29b-41d4-a716-446655445500', '550e8400-e29b-41d4-a716-446655445601', null, '550e8400-e29b-41d4-a716-446655441109', 720000.00, 180000.00, 'Total employee salaries and benefits', '550e8400-e29b-41d4-a716-446655441302'),
-('550e8400-e29b-41d4-a716-446655445702', '550e8400-e29b-41d4-a716-446655445500', '550e8400-e29b-41d4-a716-446655445602', '550e8400-e29b-41d4-a716-446655440032', '550e8400-e29b-41d4-a716-446655441108', 150000.00, 35000.00, 'Operations department expenses', '550e8400-e29b-41d4-a716-446655441302'),
-('550e8400-e29b-41d4-a716-446655445703', '550e8400-e29b-41d4-a716-446655445500', '550e8400-e29b-41d4-a716-446655445603', null, '550e8400-e29b-41d4-a716-446655441103', 75000.00, 18000.00, 'Equipment and infrastructure upgrades', '550e8400-e29b-41d4-a716-446655441302');
+('550e8400-e29b-41d4-a716-446655445700', '550e8400-e29b-41d4-a716-446655445500', '550e8400-e29b-41d4-a716-446655445600', '550e8400-e29b-41d4-a716-446655440030', '550e8400-e29b-41d4-a716-446655441106', 2500000.00, 650000.00, 'Annual sales revenue target', '550e8400-e29b-41d4-a716-446655440023'),
+('550e8400-e29b-41d4-a716-446655445701', '550e8400-e29b-41d4-a716-446655445500', '550e8400-e29b-41d4-a716-446655445601', null, '550e8400-e29b-41d4-a716-446655441109', 720000.00, 180000.00, 'Total employee salaries and benefits', '550e8400-e29b-41d4-a716-446655440023'),
+('550e8400-e29b-41d4-a716-446655445702', '550e8400-e29b-41d4-a716-446655445500', '550e8400-e29b-41d4-a716-446655445602', '550e8400-e29b-41d4-a716-446655440032', '550e8400-e29b-41d4-a716-446655441108', 150000.00, 35000.00, 'Operations department expenses', '550e8400-e29b-41d4-a716-446655440023'),
+('550e8400-e29b-41d4-a716-446655445703', '550e8400-e29b-41d4-a716-446655445500', '550e8400-e29b-41d4-a716-446655445603', null, '550e8400-e29b-41d4-a716-446655441103', 75000.00, 18000.00, 'Equipment and infrastructure upgrades', '550e8400-e29b-41d4-a716-446655440023');
 
 -- System Configuration and Business Intelligence Data
 
 -- System Settings
 INSERT INTO system_settings (id, company_id, setting_key, setting_value, setting_type, description, is_encrypted, updated_by) VALUES
 ('550e8400-e29b-41d4-a716-446655445800', '550e8400-e29b-41d4-a716-446655440000', 'company_name', 'TechFlow Solutions Inc.', 'string', 'Official company name for reports', false, '550e8400-e29b-41d4-a716-446655440020'),
-('550e8400-e29b-41d4-a716-446655445801', '550e8400-e29b-41d4-a716-446655440000', 'default_currency', 'USD', 'string', 'Default currency for financial operations', false, '550e8400-e29b-41d4-a716-446655441302'),
-('550e8400-e29b-41d4-a716-446655445802', '550e8400-e29b-41d4-a716-446655440000', 'inventory_reorder_threshold', '10', 'number', 'Default reorder threshold percentage', false, '550e8400-e29b-41d4-a716-446655441300'),
+('550e8400-e29b-41d4-a716-446655445801', '550e8400-e29b-41d4-a716-446655440000', 'default_currency', 'USD', 'string', 'Default currency for financial operations', false, '550e8400-e29b-41d4-a716-446655440023'),
+('550e8400-e29b-41d4-a716-446655445802', '550e8400-e29b-41d4-a716-446655440000', 'inventory_reorder_threshold', '10', 'number', 'Default reorder threshold percentage', false, '550e8400-e29b-41d4-a716-446655440021'),
 ('550e8400-e29b-41d4-a716-446655445803', '550e8400-e29b-41d4-a716-446655440000', 'enable_automatic_backups', 'true', 'boolean', 'Enable automatic database backups', false, '550e8400-e29b-41d4-a716-446655440020'),
 ('550e8400-e29b-41d4-a716-446655445804', '550e8400-e29b-41d4-a716-446655440000', 'email_smtp_config', '{"host":"smtp.techflow.com","port":587,"username":"noreply@techflow.com"}', 'json', 'SMTP configuration for outbound emails', true, '550e8400-e29b-41d4-a716-446655440020');
 
