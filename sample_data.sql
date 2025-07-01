@@ -497,15 +497,15 @@ INSERT INTO training_enrollments (training_session_id, employee_id, enrollment_d
 
 -- Work Centers
 INSERT INTO work_centers (id, company_id, code, name, description, capacity_per_hour, efficiency_percentage, setup_time_minutes, hourly_rate, is_active) VALUES
-('550e8400-e29b-41d4-a716-446655443700', '550e8400-e29b-41d4-a716-446655440000', 'ASSEMBLY-01', 'Main Assembly Line', 'Primary laptop assembly station', 5.00, 95.00, 30),
-('550e8400-e29b-41d4-a716-446655443701', '550e8400-e29b-41d4-a716-446655440000', 'TESTING-01', 'Quality Testing Station', 'Final product testing and validation', 8.00, 98.00, 15),
-('550e8400-e29b-41d4-a716-446655443702', '550e8400-e29b-41d4-a716-446655440000', 'PACKAGING-01', 'Packaging Station', 'Product packaging and shipping prep', 12.00, 90.00, 10),
-('550e8400-e29b-41d4-a716-446655443703', '550e8400-e29b-41d4-a716-446655440000', 'CONFIG-01', 'Configuration Center', 'Software installation and configuration', 6.00, 92.00, 20);
+('550e8400-e29b-41d4-a716-446655443700', '550e8400-e29b-41d4-a716-446655440000', 'ASSEMBLY-01', 'Main Assembly Line', 'Primary laptop assembly station', 5.00, 95.00, 30, 75.00, true),
+('550e8400-e29b-41d4-a716-446655443701', '550e8400-e29b-41d4-a716-446655440000', 'TESTING-01', 'Quality Testing Station', 'Final product testing and validation', 8.00, 98.00, 15, 85.00, true),
+('550e8400-e29b-41d4-a716-446655443702', '550e8400-e29b-41d4-a716-446655440000', 'PACKAGING-01', 'Packaging Station', 'Product packaging and shipping prep', 12.00, 90.00, 10, 45.00, true),
+('550e8400-e29b-41d4-a716-446655443703', '550e8400-e29b-41d4-a716-446655440000', 'CONFIG-01', 'Configuration Center', 'Software installation and configuration', 6.00, 92.00, 20, 95.00, true);
 
 -- BOM Headers
 INSERT INTO bom_headers (id, company_id, product_id, version, is_active, effective_date, created_by) VALUES
-('550e8400-e29b-41d4-a716-446655443800', '550e8400-e29b-41d4-a716-446655440000', '550e8400-e29b-41d4-a716-446655440060', '1.0', true, '2024-01-01', '550e8400-e29b-41d4-a716-446655441300'),
-('550e8400-e29b-41d4-a716-446655443801', '550e8400-e29b-41d4-a716-446655440000', '550e8400-e29b-41d4-a716-446655440064', '1.0', true, '2024-01-01', '550e8400-e29b-41d4-a716-446655441300');
+('550e8400-e29b-41d4-a716-446655443800', '550e8400-e29b-41d4-a716-446655440000', '550e8400-e29b-41d4-a716-446655440060', '1.0', true, '2024-01-01', '550e8400-e29b-41d4-a716-446655440023'),
+('550e8400-e29b-41d4-a716-446655443801', '550e8400-e29b-41d4-a716-446655440000', '550e8400-e29b-41d4-a716-446655440064', '1.0', true, '2024-01-01', '550e8400-e29b-41d4-a716-446655440023');
 
 -- BOM Items (components for laptop)
 INSERT INTO bom_items (id, bom_header_id, component_product_id, quantity, unit_of_measure, scrap_percentage, operation_sequence, notes) VALUES
