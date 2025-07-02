@@ -671,17 +671,17 @@ INSERT INTO kpis (id, company_id, name, description, category, calculation_metho
 
 -- KPI Values
 INSERT INTO kpi_values (id, kpi_id, period_date, actual_value, target_value, notes) VALUES
-('550e8400-e29b-41d4-a716-446655446000', '550e8400-e29b-41d4-a716-446655445900', '2024-01-31', 185000.0000),
-('550e8400-e29b-41d4-a716-446655446001', '550e8400-e29b-41d4-a716-446655445900', '2024-02-29', 220000.0000),
-('550e8400-e29b-41d4-a716-446655446002', '550e8400-e29b-41d4-a716-446655445901', '2024-01-31', 4.2000),
-('550e8400-e29b-41d4-a716-446655446003', '550e8400-e29b-41d4-a716-446655445902', '2024-03-31', 11.5000),
-('550e8400-e29b-41d4-a716-446655446004', '550e8400-e29b-41d4-a716-446655445903', '2024-03-31', 97.0000);
+('550e8400-e29b-41d4-a716-446655446000', '550e8400-e29b-41d4-a716-446655445900', '2024-01-31', 185000.0000, 200000.0000, 'Strong January performance'),
+('550e8400-e29b-41d4-a716-446655446001', '550e8400-e29b-41d4-a716-446655445900', '2024-02-29', 220000.0000, 200000.0000, 'Exceeded target in February'),
+('550e8400-e29b-41d4-a716-446655446002', '550e8400-e29b-41d4-a716-446655445901', '2024-01-31', 4.2000, 4.5000, 'Slightly below satisfaction target'),
+('550e8400-e29b-41d4-a716-446655446003', '550e8400-e29b-41d4-a716-446655445902', '2024-03-31', 11.5000, 12.0000, 'Good inventory turnover rate'),
+('550e8400-e29b-41d4-a716-446655446004', '550e8400-e29b-41d4-a716-446655445903', '2024-03-31', 97.0000, 95.0000, 'Excellent retention performance');
 
 -- Reports
 INSERT INTO reports (id, company_id, name, description, report_type, query_sql, parameters, is_public, created_by, is_active) VALUES
-('550e8400-e29b-41d4-a716-446655446100', '550e8400-e29b-41d4-a716-446655440000', 'Monthly Sales Summary', 'Summary of sales performance by month', 'sales', 'SELECT DATE_TRUNC(''month'', invoice_date) as month, SUM(total_amount) as revenue FROM invoices WHERE status = ''paid'' GROUP BY month ORDER BY month', '{"date_range": "monthly"}', true, '550e8400-e29b-41d4-a716-446655441301', true),
-('550e8400-e29b-41d4-a716-446655446101', '550e8400-e29b-41d4-a716-446655440000', 'Inventory Status Report', 'Current inventory levels and reorder alerts', 'operational', 'SELECT p.name, i.quantity_on_hand, p.minimum_stock FROM products p JOIN inventory i ON p.id = i.product_id WHERE i.quantity_on_hand <= p.minimum_stock', '{}', false, '550e8400-e29b-41d4-a716-446655441300', true),
-('550e8400-e29b-41d4-a716-446655446102', '550e8400-e29b-41d4-a716-446655440000', 'Employee Payroll Summary', 'Payroll summary by department and period', 'hr', 'SELECT d.name as department, pr.run_date, SUM(pi.gross_pay) as total_gross, SUM(pi.net_pay) as total_net FROM payroll_items pi JOIN employees e ON pi.employee_id = e.id JOIN departments d ON e.department_id = d.id JOIN payroll_runs pr ON pi.payroll_run_id = pr.id GROUP BY d.name, pr.run_date ORDER BY pr.run_date DESC', '{"period": "current"}', false, '550e8400-e29b-41d4-a716-446655441302', true);
+('550e8400-e29b-41d4-a716-446655446100', '550e8400-e29b-41d4-a716-446655440000', 'Monthly Sales Summary', 'Summary of sales performance by month', 'sales', 'SELECT DATE_TRUNC(''month'', invoice_date) as month, SUM(total_amount) as revenue FROM invoices WHERE status = ''paid'' GROUP BY month ORDER BY month', '{"date_range": "monthly"}', true, '550e8400-e29b-41d4-a716-446655440022', true),
+('550e8400-e29b-41d4-a716-446655446101', '550e8400-e29b-41d4-a716-446655440000', 'Inventory Status Report', 'Current inventory levels and reorder alerts', 'operational', 'SELECT p.name, i.quantity_on_hand, p.minimum_stock FROM products p JOIN inventory i ON p.id = i.product_id WHERE i.quantity_on_hand <= p.minimum_stock', '{}', false, '550e8400-e29b-41d4-a716-446655440021', true),
+('550e8400-e29b-41d4-a716-446655446102', '550e8400-e29b-41d4-a716-446655440000', 'Employee Payroll Summary', 'Payroll summary by department and period', 'hr', 'SELECT d.name as department, pr.run_date, SUM(pi.gross_pay) as total_gross, SUM(pi.net_pay) as total_net FROM payroll_items pi JOIN employees e ON pi.employee_id = e.id JOIN departments d ON e.department_id = d.id JOIN payroll_runs pr ON pi.payroll_run_id = pr.id GROUP BY d.name, pr.run_date ORDER BY pr.run_date DESC', '{"period": "current"}', false, '550e8400-e29b-41d4-a716-446655440023', true);
 
 -- User Notifications
 INSERT INTO user_notifications (id, user_id, title, message, notification_type, is_read, related_to_type, related_to_id) VALUES
