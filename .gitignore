@@ -84,3 +84,4 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+database_stats_report.json
